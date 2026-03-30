@@ -6,20 +6,20 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Digital A Landing Page Template",
-    template: "%s | Digital A Landing Template",
+    default: "Psí SPA Box",
+    template: "%s | Psí SPA Box",
   },
   description:
-    "Modern Next.js landing page template with Tailwind, Motion for React, bilingual routing and Sanity-ready content editing.",
-  applicationName: "Digital A Landing Page Template",
+    "Samoobslužná umyvárka pre psov s rezerváciou 24/7. Prídeš, otvoríš dvere kódom z mobilu, umyješ psíka a ideš ďalej bez neporiadku doma.",
+  applicationName: "Psí SPA Box",
   keywords: [
-    "landing page template",
-    "next.js landing page",
-    "sanity cms",
-    "tailwind template",
-    "digital marketing website",
+    "psia umyvarka",
+    "samoobsluzna umyvaren pre psov",
+    "dog wash",
+    "umyvanie psov",
+    "psi spa",
   ],
-  category: "marketing",
+  category: "pet care",
   alternates: {
     languages: {
       sk: "/sk",
@@ -27,18 +27,18 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Digital A Landing Page Template",
+    title: "Psí SPA Box",
     description:
-      "A premium landing page starter for campaigns, service offers and launch websites.",
+      "Samoobslužná umyvárka pre psov s prístupom cez kód z mobilu. Rýchle, čisté a pohodlné riešenie bez chaosu doma.",
     type: "website",
     url: siteUrl,
-    siteName: "Digital A",
+    siteName: "Psí SPA Box",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digital A Landing Page Template",
+    title: "Psí SPA Box",
     description:
-      "Next.js, Tailwind and Sanity-ready landing page template for fast campaign launches.",
+      "Prídeš so psom, otvoríš box kódom a vybavíš kúpanie rýchlo a čisto.",
   },
   robots: {
     index: true,
