@@ -45,9 +45,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: "/logo_box_wash.png",
-    apple: "/logo_box_wash.png",
-    shortcut: "/logo_box_wash.png",
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+    shortcut: "/icon.png",
   },
 };
 
