@@ -1,6 +1,21 @@
 # Sanity model for this frontend
 
-This frontend expects one document of type `landingPage` per locale.
+This project now contains embedded Sanity Studio files directly in the repo.
+
+## Studio path
+
+- Local Studio URL: `http://localhost:3000/studio`
+
+## Where the schema lives
+
+- `sanity.config.ts`
+- `sanity/structure.ts`
+- `sanity/schemaTypes/`
+
+The Studio exposes two fixed homepage editors:
+
+- `Home Page SK` with document ID `landingPage-sk`
+- `Home Page EN` with document ID `landingPage-en`
 
 ## Required document shape
 
@@ -56,17 +71,16 @@ type landingPage = {
 
 ## Minimal workflow
 
-1. Create a schema for `landingPage`.
-2. Add a `locale` field with values `sk` and `en`.
-3. Create one document for Slovak and one for English.
-4. Copy `.env.example` to `.env.local` in this frontend repo.
-5. Set the correct dataset in `.env.local`.
-6. Run `npm run dev`.
+1. Copy `.env.example` to `.env.local`.
+2. Set the correct dataset in `.env.local`.
+3. Run `npm run dev`.
+4. Open `/studio`.
+5. Fill the `Home Page SK` and `Home Page EN` documents section by section.
 
 ## GROQ query already used by the frontend
 
 ```groq
-*[_type == "landingPage" && locale == $locale][0]{
+*[_type == "landingPage" && _id == $documentId][0]{
   locale,
   seo,
   navigation,

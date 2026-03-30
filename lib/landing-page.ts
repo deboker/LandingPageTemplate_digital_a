@@ -1,6 +1,7 @@
 import { cache } from "react";
 import type { Locale } from "@/lib/locales";
 import { defaultLocale } from "@/lib/locales";
+import { landingPageDocumentIds } from "@/sanity/project";
 import { fetchSanityData } from "@/lib/sanity/client";
 import { landingPageQuery } from "@/lib/sanity/queries";
 
@@ -583,7 +584,7 @@ export const getLandingPage = cache(
 
     const content = await fetchSanityData<PartialDeep<LandingPageData> | null>({
       query: landingPageQuery,
-      params: { locale },
+      params: { documentId: landingPageDocumentIds[locale] },
       fallback: null,
     });
 

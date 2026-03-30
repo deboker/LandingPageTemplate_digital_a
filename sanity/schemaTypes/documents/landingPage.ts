@@ -1,0 +1,142 @@
+import { defineArrayMember, defineField, defineType } from "sanity";
+
+export const landingPage = defineType({
+  name: "landingPage",
+  title: "Landing Page",
+  type: "document",
+  description:
+    "Homepage content for one locale. This document is edited through fixed Studio entries for SK and EN.",
+  groups: [
+    { name: "general", title: "General", default: true },
+    { name: "seo", title: "SEO" },
+    { name: "navigation", title: "Navigation" },
+    { name: "hero", title: "Hero" },
+    { name: "overview", title: "Overview" },
+    { name: "features", title: "Features" },
+    { name: "process", title: "Process" },
+    { name: "cms", title: "CMS Section" },
+    { name: "faq", title: "FAQ" },
+    { name: "finalCta", title: "Final CTA" },
+    { name: "footer", title: "Footer" },
+  ],
+  fields: [
+    defineField({
+      name: "title",
+      title: "Internal title",
+      type: "string",
+      group: "general",
+      description: "Only visible inside Studio, not on the public website.",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "locale",
+      title: "Locale",
+      type: "string",
+      group: "general",
+      options: {
+        layout: "radio",
+        list: [
+          { title: "Slovak", value: "sk" },
+          { title: "English", value: "en" },
+        ],
+      },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "seo",
+      title: "SEO",
+      type: "seoSettings",
+      group: "seo",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "navigation",
+      title: "Header navigation",
+      type: "array",
+      group: "navigation",
+      of: [defineArrayMember({ type: "navItem" })],
+      validation: (rule) => rule.min(1).max(6),
+    }),
+    defineField({
+      name: "hero",
+      title: "Hero section",
+      type: "heroSection",
+      group: "hero",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "highlights",
+      title: "Overview cards",
+      type: "array",
+      group: "overview",
+      of: [defineArrayMember({ type: "highlightItem" })],
+      validation: (rule) => rule.min(1),
+    }),
+    defineField({
+      name: "proofStrip",
+      title: "Proof strip labels",
+      type: "array",
+      group: "overview",
+      of: [defineArrayMember({ type: "string" })],
+      options: { layout: "tags" },
+      validation: (rule) => rule.min(1),
+    }),
+    defineField({
+      name: "features",
+      title: "Feature cards",
+      type: "array",
+      group: "features",
+      of: [defineArrayMember({ type: "featureItem" })],
+      validation: (rule) => rule.min(1),
+    }),
+    defineField({
+      name: "process",
+      title: "Process steps",
+      type: "array",
+      group: "process",
+      of: [defineArrayMember({ type: "processStep" })],
+      validation: (rule) => rule.min(1),
+    }),
+    defineField({
+      name: "cms",
+      title: "CMS section",
+      type: "cmsSection",
+      group: "cms",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "faq",
+      title: "FAQ entries",
+      type: "array",
+      group: "faq",
+      of: [defineArrayMember({ type: "faqItem" })],
+      validation: (rule) => rule.min(1),
+    }),
+    defineField({
+      name: "finalCta",
+      title: "Final CTA",
+      type: "finalCtaSection",
+      group: "finalCta",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "footer",
+      title: "Footer",
+      type: "footerContent",
+      group: "footer",
+      validation: (rule) => rule.required(),
+    }),
+  ],
+  preview: {
+    select: {
+      title: "title",
+      locale: "locale",
+    },
+    prepare({ title, locale }) {
+      return {
+        title: title || "Untitled landing page",
+        subtitle: locale ? locale.toUpperCase() : "Locale not set",
+      };
+    },
+  },
+});

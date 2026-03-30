@@ -5,11 +5,12 @@ Modern landing page starter built with `Next.js`, `Tailwind CSS`, `Motion for Re
 ## Included
 
 - App Router setup with separate `/sk` and `/en` routes
+- Embedded Sanity Studio on `/studio`
 - Tailwind v4 styling with a premium landing-page visual direction
 - Motion-based reveal and floating components
 - Metadata, sitemap, robots and locale alternates for SEO
 - Fallback content so the site works before Sanity is connected
-- Sanity client helpers and a `landingPage` query prepared for your CMS
+- Sanity client helpers, schema files and a `landingPage` query prepared for your CMS
 
 ## Local setup
 
@@ -52,6 +53,19 @@ You still need to confirm:
 
 See `docs/sanity-model.md` for the content model this frontend expects.
 
+## Studio route
+
+The Studio is embedded directly in this Next.js app:
+
+- `http://localhost:3000/studio`
+
+Schema files live in the `sanity/` folder. Editors get two fixed entries:
+
+- `Home Page SK`
+- `Home Page EN`
+
+Each document is split into section tabs such as Hero, Overview, Features, Process, FAQ, Footer and SEO.
+
 ## Main files
 
 - `app/[locale]/page.tsx`: main landing page structure
@@ -59,6 +73,9 @@ See `docs/sanity-model.md` for the content model this frontend expects.
 - `lib/landing-page.ts`: fallback content and CMS merge logic
 - `lib/sanity/client.ts`: Sanity client configuration
 - `lib/sanity/queries.ts`: GROQ query for `landingPage`
+- `sanity.config.ts`: Studio configuration
+- `sanity/structure.ts`: fixed Studio entries for SK and EN homepage content
+- `sanity/schemaTypes/`: document and object schemas for the homepage editor
 
 ## Next customizations
 

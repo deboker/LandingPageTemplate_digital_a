@@ -81,7 +81,7 @@ export default async function LocalePage({ params }: PageProps) {
       : "Demo content is active for now. Once you create a landingPage document in Sanity for this locale, the frontend will use it automatically.";
 
   return (
-    <div lang={locale} className="relative overflow-hidden">
+    <div lang={locale} className="site-shell relative overflow-hidden">
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[38rem] bg-[radial-gradient(circle_at_top,rgba(129,220,255,0.26),transparent_52%)]" />
       <div className="pointer-events-none absolute left-1/2 top-24 -z-10 h-[32rem] w-[72rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(198,255,108,0.2),transparent_58%)] blur-3xl" />
 
