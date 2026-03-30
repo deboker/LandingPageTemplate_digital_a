@@ -17,8 +17,8 @@ export function ContactRail({
   const leadLabel = locale === "sk" ? "Rezervovať" : "Book now";
 
   return (
-    <div className="pointer-events-none fixed right-4 top-1/2 z-40 hidden -translate-y-1/2 xl:flex">
-      <div className="pointer-events-auto flex flex-col gap-3">
+    <div className="pointer-events-none fixed right-1 top-1/2 z-40 -translate-y-1/2 sm:right-2 lg:right-3">
+      <div className="pointer-events-auto flex flex-col gap-2">
         <RailItem
           href={phoneHref}
           label={locale === "sk" ? "Zavolať" : "Call us"}
@@ -63,13 +63,13 @@ function RailItem({ href, label, tone, icon }: RailItemProps) {
   return (
     <Link href={href} className="group flex justify-end" aria-label={label}>
       <span
-        className={`flex h-12 w-12 items-center justify-end overflow-hidden rounded-full transition-[width,transform,box-shadow] duration-300 ease-out group-hover:w-[12.5rem] group-hover:-translate-x-1 ${shellClass}`}
+        className={`flex h-10 w-10 items-center justify-end overflow-hidden rounded-full transition-[width,transform,box-shadow] duration-300 ease-out group-hover:w-[11rem] group-hover:-translate-x-1 ${shellClass}`}
       >
-        <span className="max-w-0 overflow-hidden whitespace-nowrap pr-0 text-sm font-semibold opacity-0 transition-all duration-300 group-hover:max-w-[8.5rem] group-hover:pr-3 group-hover:opacity-100">
+        <span className="max-w-0 overflow-hidden whitespace-nowrap pr-0 text-xs font-semibold opacity-0 transition-all duration-300 group-hover:max-w-[7.5rem] group-hover:pr-2.5 group-hover:opacity-100">
           {label}
         </span>
         <span
-          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${iconClass}`}
+          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${iconClass}`}
         >
           {icon}
         </span>
@@ -84,7 +84,7 @@ function PhoneIcon() {
       aria-hidden="true"
       viewBox="0 0 24 24"
       fill="none"
-      className="h-4 w-4"
+      className="h-3.5 w-3.5"
       stroke="currentColor"
       strokeWidth="1.8"
     >
@@ -99,7 +99,7 @@ function MailIcon() {
       aria-hidden="true"
       viewBox="0 0 24 24"
       fill="none"
-      className="h-4 w-4"
+      className="h-3.5 w-3.5"
       stroke="currentColor"
       strokeWidth="1.8"
     >
@@ -115,7 +115,7 @@ function LeadIcon() {
       aria-hidden="true"
       viewBox="0 0 24 24"
       fill="none"
-      className="h-4 w-4"
+      className="h-3.5 w-3.5"
       stroke="currentColor"
       strokeWidth="1.8"
     >
