@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Digital A Landing Page Template
 
-## Getting Started
+Modern landing page starter built with `Next.js`, `Tailwind CSS`, `Motion for React`, and a Sanity-ready content layer.
 
-First, run the development server:
+## Included
+
+- App Router setup with separate `/sk` and `/en` routes
+- Tailwind v4 styling with a premium landing-page visual direction
+- Motion-based reveal and floating components
+- Metadata, sitemap, robots and locale alternates for SEO
+- Fallback content so the site works before Sanity is connected
+- Sanity client helpers and a `landingPage` query prepared for your CMS
+
+## Local setup
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Copy the env file:
+
+```bash
+cp .env.example .env.local
+```
+
+3. Start development:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Optional checks:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run lint
+npm run typecheck
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Sanity connection
 
-## Learn More
+The project already contains your Sanity project ID:
 
-To learn more about Next.js, take a look at the following resources:
+- `NEXT_PUBLIC_SANITY_PROJECT_ID=ypdwbs5t`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+You still need to confirm:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- dataset name, usually `production`
+- optional read token if you want preview or private content
+- your site URL for production metadata
 
-## Deploy on Vercel
+See `docs/sanity-model.md` for the content model this frontend expects.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Main files
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `app/[locale]/page.tsx`: main landing page structure
+- `app/globals.css`: color tokens, fonts and global visual setup
+- `lib/landing-page.ts`: fallback content and CMS merge logic
+- `lib/sanity/client.ts`: Sanity client configuration
+- `lib/sanity/queries.ts`: GROQ query for `landingPage`
+
+## Next customizations
+
+- Replace CTA destinations and contact data in `lib/landing-page.ts`
+- Change the visual direction in `app/globals.css`
+- Add forms, analytics or extra sections directly inside `app/[locale]/page.tsx`
