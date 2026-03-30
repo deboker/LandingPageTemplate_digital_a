@@ -66,6 +66,33 @@ Schema files live in the `sanity/` folder. Editors get two fixed entries:
 
 Each document is split into section tabs such as Hero, Overview, Features, Process, FAQ, Footer and SEO.
 
+## Netlify deploy
+
+This project is ready for Netlify with the built-in Next.js support.
+
+Suggested settings:
+
+- Build command: `npm run build`
+- Publish directory: `.next`
+- Node version: `22.13.0`
+
+Environment variables should be set in the Netlify UI, not in `netlify.toml`, because runtime functions need access to them.
+
+Add these variables in Netlify:
+
+- `NEXT_PUBLIC_SITE_URL=https://your-domain.com`
+- `NEXT_PUBLIC_SANITY_PROJECT_ID=ypdwbs5t`
+- `NEXT_PUBLIC_SANITY_DATASET=production`
+- `NEXT_PUBLIC_SANITY_API_VERSION=2026-03-30`
+- `SANITY_API_READ_TOKEN=` optional, only if you want private reads or preview-style behavior
+
+After Netlify gives you a deploy URL, add that URL in Sanity project settings as an allowed CORS origin, for example:
+
+- `https://your-site.netlify.app`
+- `https://your-domain.com`
+
+If you want the embedded Studio to work on production, those same domains must be allowed in Sanity as well.
+
 ## Main files
 
 - `app/[locale]/page.tsx`: main landing page structure
@@ -76,6 +103,7 @@ Each document is split into section tabs such as Hero, Overview, Features, Proce
 - `sanity.config.ts`: Studio configuration
 - `sanity/structure.ts`: fixed Studio entries for SK and EN homepage content
 - `sanity/schemaTypes/`: document and object schemas for the homepage editor
+- `netlify.toml`: explicit Netlify build settings
 
 ## Next customizations
 
