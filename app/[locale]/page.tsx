@@ -91,7 +91,7 @@ export default async function LocalePage({ params }: PageProps) {
         primaryCta={content.hero.primaryCta}
       />
 
-      <main className="mx-auto flex w-full max-w-7xl flex-col gap-16 px-6 pb-20 pt-8 sm:px-8 lg:px-10 lg:pt-10">
+      <main className="mx-auto flex w-full max-w-none flex-col gap-16 px-6 pb-20 pt-8 sm:px-8 lg:px-14 lg:pt-10 xl:px-20 2xl:px-24">
         <FadeIn className="relative overflow-hidden rounded-[2.25rem] border border-slate-900/8 bg-white/70 px-6 py-8 shadow-[0_28px_100px_rgba(15,23,42,0.08)] backdrop-blur xl:px-10 xl:py-10">
           <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(135deg,rgba(255,255,255,0.94),rgba(255,255,255,0.52))]" />
           <div className="grid gap-10 lg:grid-cols-[1.08fr_0.92fr]">
