@@ -21,15 +21,12 @@ const openGraphLocales: Record<Locale, string> = {
 };
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
-
 const socialImage = {
-  url: `${siteUrl}/opengraph-image`,
-  width: 1200,
-  height: 630,
-  alt: "Psí SPA Box | Samoobslužná umyvárka pre psov",
+  url: `${siteUrl}/logo_spa-box.png`,
+  width: 699,
+  height: 699,
+  alt: "Psí SPA Box logo",
 } as const;
-
-const twitterImage = `${siteUrl}/twitter-image`;
 
 const pageCopy: Record<
   Locale,
@@ -270,7 +267,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: content.seo.title,
       description: content.seo.description,
-      images: [twitterImage],
+      images: [socialImage.url],
     },
   };
 }

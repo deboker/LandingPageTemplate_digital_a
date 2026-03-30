@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
+const socialImage = `${siteUrl}/logo_spa-box.png`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -33,12 +34,21 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName: "Psí SPA Box",
+    images: [
+      {
+        url: socialImage,
+        width: 699,
+        height: 699,
+        alt: "Psí SPA Box logo",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Psí SPA Box",
     description:
       "Prídeš so psom, otvoríš box kódom a vybavíš kúpanie rýchlo a čisto.",
+    images: [socialImage],
   },
   robots: {
     index: true,
