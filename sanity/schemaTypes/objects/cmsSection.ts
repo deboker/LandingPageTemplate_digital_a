@@ -2,7 +2,7 @@ import { defineArrayMember, defineField, defineType } from "sanity";
 
 export const cmsSection = defineType({
   name: "cmsSection",
-  title: "CMS section",
+  title: "Pricing section",
   type: "object",
   fields: [
     defineField({
@@ -26,7 +26,7 @@ export const cmsSection = defineType({
     }),
     defineField({
       name: "items",
-      title: "Editable items list",
+      title: "Included items",
       type: "array",
       of: [defineArrayMember({ type: "string" })],
       options: { layout: "tags" },
@@ -34,7 +34,7 @@ export const cmsSection = defineType({
     }),
     defineField({
       name: "note",
-      title: "Helper note",
+      title: "Extra note",
       type: "text",
       rows: 3,
       validation: (rule) => rule.required(),

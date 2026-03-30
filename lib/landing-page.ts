@@ -42,8 +42,10 @@ export type FaqItem = {
 };
 
 export type FooterContent = {
+  brandName: string;
   tagline: string;
   email: string;
+  phone: string;
   location: string;
 };
 
@@ -102,399 +104,493 @@ type PartialDeep<T> = T extends Primitive
         [K in keyof T]?: PartialDeep<T[K]>;
       };
 
+function isPlaceholderString(value: string) {
+  const trimmed = value.trim();
+  const lower = trimmed.toLowerCase();
+  const legacyFallbackMarkers = [
+    "landing page template",
+    "sanity ready",
+    "premium template v next.js",
+    "premium template in next.js",
+    "predajný web pre",
+    "sales landing page for",
+    "výkonné kampane",
+    "vykonne kampane",
+    "moderné launch stránky",
+    "modern launch pages",
+  ];
+
+  if (trimmed.length === 0) {
+    return true;
+  }
+
+  if (/^d{2,}$/i.test(trimmed) || /^x{2,}$/i.test(trimmed)) {
+    return true;
+  }
+
+  if (/^(test|todo|placeholder|null)$/i.test(lower)) {
+    return true;
+  }
+
+  if (legacyFallbackMarkers.some((marker) => lower.includes(marker))) {
+    return true;
+  }
+
+  return false;
+}
+
+function sanitizeWithFallback<T>(incoming: T | undefined, fallback: T): T {
+  if (incoming === undefined || incoming === null) {
+    return fallback;
+  }
+
+  if (typeof fallback === "string") {
+    const value = typeof incoming === "string" ? incoming : String(incoming);
+    return (isPlaceholderString(value) ? fallback : value) as T;
+  }
+
+  if (Array.isArray(fallback)) {
+    if (!Array.isArray(incoming) || incoming.length === 0) {
+      return fallback;
+    }
+
+    const template = fallback[0];
+    const sanitized = incoming.map((item, index) =>
+      sanitizeWithFallback(item, (fallback[index] ?? template) as typeof item),
+    );
+
+    return (sanitized.length > 0 ? sanitized : fallback) as T;
+  }
+
+  if (typeof fallback === "object" && fallback !== null) {
+    const source =
+      typeof incoming === "object" && incoming !== null
+        ? (incoming as Record<string, unknown>)
+        : {};
+    const result: Record<string, unknown> = {};
+
+    for (const key of Object.keys(fallback as Record<string, unknown>)) {
+      result[key] = sanitizeWithFallback(
+        source[key] as never,
+        (fallback as Record<string, unknown>)[key] as never,
+      );
+    }
+
+    return result as T;
+  }
+
+  return incoming;
+}
+
 const fallbackContent: Record<Locale, LandingPageData> = {
   sk: {
     locale: "sk",
     seo: {
-      title: "Landing page template pre Digital A",
+      title: "Psí SPA Box | Samoobslužná umyvárka pre psov 24/7",
       description:
-        "Moderný Next.js landing page template pre digitálne kampane, lead gen, launch weby a služby. Dvojjazyčný, SEO-ready a napojený na Sanity.",
+        "Prídeš so psom, otvoríš dvere kódom z mobilu, umyješ ho, vysušíš a ideš ďalej. Jednoduchá samoobslužná psia umyvárka s rezerváciou 24/7.",
       keywords: [
-        "landing page template",
-        "next.js template",
-        "sanity cms",
-        "lead generation web",
-        "digital a",
+        "psia umyvarka",
+        "samoobsluzna umyvaren pre psov",
+        "umyvanie psov",
+        "psi spa",
+        "dog wash bratislava",
       ],
     },
     navigation: [
-      { label: "Prehľad", href: "#overview" },
-      { label: "Bloky", href: "#features" },
-      { label: "Proces", href: "#process" },
+      { label: "Prečo k nám", href: "#overview" },
+      { label: "V boxe", href: "#features" },
+      { label: "Cenník", href: "#pricing" },
+      { label: "Ako to funguje", href: "#process" },
       { label: "FAQ", href: "#faq" },
       { label: "Kontakt", href: "#contact" },
     ],
     hero: {
-      eyebrow: "Landing page template pre predaj a kampane",
-      titlePrefix: "Predajný web pre",
-      titleAccent: "výkonné kampane",
-      titleSuffix: "a moderné launch stránky.",
+      eyebrow: "Samoobslužná psia umyvárka s prístupom cez kód",
+      titlePrefix: "Prídeš, zadáš kód a",
+      titleAccent: "umyješ psíka",
+      titleSuffix: "bez neporiadku doma.",
       description:
-        "Premium template v Next.js pre digitálne agentúry, služby a lead gen ponuky. Pripravený na SEO, dvojjazyčný routing, animované sekcie a Sanity editáciu pre klienta.",
+        "Po prechádzke, po blate alebo pred návštevou. Rezervuješ si slot online, kód dostaneš do mobilu a v čistom boxe psíka rýchlo umyješ aj vysušíš bez chaosu v kúpeľni.",
       primaryCta: {
-        label: "Chcem custom verziu",
-        href: "#contact",
+        label: "Rezervovať slot",
+        href: "#pricing",
       },
       secondaryCta: {
-        label: "Pozrieť bloky",
-        href: "#features",
+        label: "Ako to funguje",
+        href: "#process",
       },
       metrics: [
         {
-          value: "48h",
-          label: "na prvý ostrý launch, keď máš pripravený obsah a brand assets",
+          value: "24/7",
+          label: "rezervácia a vstup, keď ti to vyhovuje, bez čakania na personál",
         },
         {
-          value: "2",
-          label: "jazyky pripravené hneď od začiatku bez duplikovania projektu",
+          value: "30 min",
+          label: "komfortný slot na umytie a vysušenie jedného psa bez naháňania",
         },
         {
-          value: "100%",
-          label: "obsahu vie meniť editor cez Sanity bez zásahu do layoutu",
+          value: "od 12 €",
+          label: "jednoduchý vstup bez členstva, len rezervácia a kód do mobilu",
         },
       ],
       proof: [
-        "SK + EN routing",
-        "SEO metadata a sitemap",
-        "Motion microinteractions",
-        "Sanity-ready content model",
+        "Vstup cez kód z mobilu",
+        "Teplá voda a sušenie",
+        "Bez upratovania doma",
+        "Súkromný box len pre teba a psa",
       ],
     },
     highlights: [
       {
-        title: "Lead generation funnels",
+        title: "Doma ostáva vaňa plná chlpov, blata a vody",
         description:
-          "Pre služby, konzultácie, kliniky alebo B2B ponuky, kde treba jasne odkomunikovať value a dostať návštevníka ku CTA.",
+          "Po každom kúpaní musíš riešiť uteráky, podlahu, odtok a chlpy všade okolo. Namiesto rýchleho umytia z toho vznikne ďalšia robota.",
       },
       {
-        title: "Service offer pages",
+        title: "Veľkého psa je doma ťažké pohodlne umyť",
         description:
-          "Pre agentúry, štúdiá a expert brandy, ktoré predávajú audit, správu kampaní, redesign alebo strategické balíky.",
+          "Zdvihnúť psa do vane, udržať ho v malej kúpeľni a potom ho doma ešte vysušiť je nepohodlné pre teba aj preňho.",
       },
       {
-        title: "Launch microsites",
+        title: "Po prechádzke potrebuješ rýchle riešenie, nie logistiku",
         description:
-          "Pre nové produkty, waitlisty, event landingy a limitované kampane, kde rýchlosť a vizuálny dojem rozhodujú.",
+          "Prídeš zo špinavej prechádzky, z lesa alebo z dažďa a chceš mať psa čistého za chvíľu, nie zablatiť celý byt cestou domov.",
       },
     ],
     features: [
       {
-        eyebrow: "Positioning",
-        title: "Hero, ktorý rovno komunikuje ponuku",
+        eyebrow: "Súkromie",
+        title: "Box máš počas rezervácie len pre seba a psa",
         description:
-          "Headline, subheadline a CTA flow sú postavené tak, aby sa návštevník nestratil a hneď pochopil, čo dostane.",
+          "Žiadne rady, žiadne nervózne čakanie. V pokoji si nastavíš tempo, dáš psovi pauzu a nemusíš sa cítiť, že niekomu zavadziaš.",
       },
       {
-        eyebrow: "Proof",
-        title: "Sekcie na dôveru a rozhodovanie",
+        eyebrow: "Prístup",
+        title: "Vstupuješ cez jednorazový kód z mobilu",
         description:
-          "FAQ, proof strip, opakované CTA a modularita pre ďalšie bloky držia konverznú logiku aj pri dlhšom predajnom texte.",
+          "Rezervácia prebehne online a kód ti príde do mobilu. Na mieste nič neriešiš, len prídeš, otvoríš dvere a ideš na to.",
       },
       {
-        eyebrow: "Performance",
-        title: "Rýchly stack pre výkon aj SEO",
+        eyebrow: "Vybavenie",
+        title: "Teplá voda, ručná sprcha a pohodlný umývací priestor",
         description:
-          "Next.js App Router, server rendering, metadata API, sitemap a robots sú pripravené od začiatku namiesto dodatočného lepenia.",
+          "Psíka umyješ v priestore navrhnutom na kúpanie, nie v improvizovanej domácej kúpeľni. Menej stresu, menej chaosu.",
       },
       {
-        eyebrow: "Content",
-        title: "Klientsky editovateľný obsah cez Sanity",
+        eyebrow: "Sušenie",
+        title: "Po umytí ho rovno vysušíš a odchádzaš čistý",
         description:
-          "Hero copy, bloky, FAQ, CTA a kontakty môže meniť marketing alebo account bez otvárania kódu.",
+          "Nemusíš odchádzať s mokrým psom do auta ani domov. Umytie a sušenie vybavíš na jednom mieste a v jednom slote.",
       },
       {
-        eyebrow: "Localization",
-        title: "Jedna štruktúra pre dva jazyky",
+        eyebrow: "Čistota",
+        title: "Doma ti neostane blato, pena ani upchatý odtok",
         description:
-          "Samostatné `/sk` a `/en` routy zjednodušujú indexáciu, interné prelinkovanie aj budúce rozširovanie obsahu.",
+          "Celý neporiadok zostane tam, kde má. Ty si domov odnesieš len čistého a spokojného psa.",
       },
       {
-        eyebrow: "Design system",
-        title: "Moderný vzhľad bez generického startup UI",
+        eyebrow: "Komfort",
+        title: "Vhodné po bežnej prechádzke aj po poriadnom blatovom výlete",
         description:
-          "Typografia, mäkké sklenené surfaces a kontrolované animácie robia z template drahšie pôsobiaci základ.",
+          "Či ide len o rýchle opláchnutie labiek alebo kompletné kúpanie, box máš pripravený na každodennú aj náročnejšiu údržbu.",
       },
     ],
     process: [
       {
-        title: "Vyber ponuku a primárny conversion goal",
+        title: "Rezervuješ si voľný slot online",
         description:
-          "Najprv sa rozhodne, či stránka predáva audit, call, lead magnet alebo produktový launch. Tomu sa potom prispôsobí headline a CTA hierarchia.",
+          "Vyberieš si čas, ktorý ti sedí. Žiadne telefonovanie ani čakanie na potvrdenie od personálu.",
       },
       {
-        title: "Naplň copy a bloky cez Sanity alebo fallback dáta",
+        title: "Do mobilu ti príde jednorazový vstupný kód",
         description:
-          "Môžeš štartovať aj bez CMS. Keď vytvoríš content model v Sanity, tie isté sekcie sa budú plniť z editor rozhrania.",
+          "Pred návštevou dostaneš kód, ktorým otvoríš dvere. Na mieste nič nevybavuješ, len prídeš a ideš dnu.",
       },
       {
-        title: "Launchni a iteruj podľa výkonu",
+        title: "Prídeš so psom, umyješ ho a podľa potreby vysušíš",
         description:
-          "Template je pripravený na ďalšie sekcie, prípadne tracking, formuláre, case studies a lokálne SEO rozšírenia.",
+          "Všetko dôležité máš pripravené v boxe. Ty si len zvolíš tempo a postaráš sa o psa bez stresu.",
+      },
+      {
+        title: "Odchádzaš bez neporiadku doma a bez zbytočných komplikácií",
+        description:
+          "Namiesto upratovania kúpeľne sadneš do auta s čistým psom a pokračuješ v dni ďalej.",
       },
     ],
     cms: {
-      eyebrow: "Sanity content layer",
-      title: "Obsah sa dá spravovať bez toho, aby si rozbil dizajn.",
+      eyebrow: "Cenník",
+      title: "30 minút v boxe za 12 €. Všetko dôležité už máš pripravené.",
       description:
-        "Frontend počíta s dokumentom typu `landingPage` pre každý jazyk. Keď ho v Sanity vytvoríš, hero, bloky, FAQ a CTA sa začnú načítavať z CMS.",
+        "Žiadne členstvo, žiadne komplikované balíčky. Rezervuješ si len slot, prídeš so psom a postaráš sa oň v čistom pripravenom priestore.",
       items: [
-        "SEO title a meta description",
-        "Navigácia a CTA labely",
-        "Hero texty a metriky",
-        "Feature cards",
-        "Process steps",
-        "FAQ otázky a odpovede",
+        "30 minút umývania a sušenia",
+        "Teplá voda a ručná sprcha",
+        "Šampón a základná kozmetika",
+        "Výkonný sušič",
+        "Prístup cez jednorazový kód",
+        "Čistý box pripravený na tvoj príchod",
       ],
       note:
-        "Project ID je už predpripravené na `ypdwbs5t`. Stačí doplniť dataset a podľa README si nahodiť document schema.",
+        "Ak máš veľké alebo veľmi chlpaté plemeno, rezervuj si dva sloty za sebou pre úplný komfort.",
     },
     proofStrip: [
-      "Next.js App Router",
-      "Tailwind CSS v4",
-      "Motion for React",
-      "Sanity CMS",
-      "Bilingual SEO routing",
-      "Metadata API",
-      "Sitemap + robots",
-      "Reusable sections",
+      "Samoobsluha 24/7",
+      "Prístupový kód do mobilu",
+      "Teplá voda",
+      "Výkonný sušič",
+      "Šampón v cene",
+      "Bez blata doma",
+      "Aj pre väčšie plemená",
+      "Rýchle a jednoduché použitie",
     ],
     faq: [
       {
-        question: "Musím mať Sanity hneď od prvého dňa?",
+        question: "Ako sa dostanem dnu?",
         answer:
-          "Nie. Template funguje aj s lokálnym fallback obsahom. Sanity vrstvu zapneš až keď vytvoríš dataset a dokument typu `landingPage`.",
+          "Po rezervácii ti príde do mobilu jednorazový kód. Ten zadáš pri dverách a box sa ti otvorí na tvoj rezervovaný čas.",
       },
       {
-        question: "Viem použiť len jeden jazyk?",
+        question: "Musím si priniesť vlastný šampón alebo fén?",
         answer:
-          "Áno. Stačí pracovať len s `/sk` alebo `/en` route. Dvojjazyčná štruktúra je pripravená, ale nie je povinná.",
+          "Základné vybavenie aj sušenie máš pripravené na mieste. Ak má tvoj pes špeciálnu kozmetiku, môžeš si priniesť aj vlastnú.",
       },
       {
-        question: "Je to pripravené aj pre SEO a marketing kampane?",
+        question: "Zvládnem tam umyť aj väčšieho psa?",
         answer:
-          "Áno. Projekt má metadata, sitemap, robots, čisté URL pre jazyky a server-rendered obsah. To je dobrý základ pre organiku aj paid traffic landingy.",
+          "Áno, box je navrhnutý tak, aby bol pohodlný aj pri väčších psoch. Pri veľmi chlpatých alebo veľkých plemenách odporúčame rezervovať si dlhší čas.",
       },
       {
-        question: "Kde zmením farby, fonty a brand feeling?",
+        question: "Čo ak potrebujem rezerváciu zmeniť alebo zrušiť?",
         answer:
-          "Základné tokens sú v `app/globals.css`, layoutové a copy sekcie v `app/[locale]/page.tsx` a obsahové fallback dáta v `lib/landing-page.ts`.",
+          "Podmienky zmeny alebo zrušenia rezervácie si nastavíš podľa svojho rezervačného systému. Na webe ich potom môžeš jednoducho doplniť aj do FAQ alebo cenníka.",
       },
     ],
     finalCta: {
-      title: "Spusti ďalší predajný landing bez skladania projektu od nuly.",
+      title: "Po prechádzke, po daždi alebo pred návštevou. Box čaká pripravený.",
       description:
-        "Template je pripravený na custom doplnenia ako formuláre, event tracking, ďalšie sekcie, referencie alebo prepojenie s ďalšími kanálmi v rámci Digital A.",
+        "Rezervuj si čas, otvor dvere kódom z mobilu a vybav kúpanie rýchlo, čisto a bez stresu pre seba aj psa.",
       primaryCta: {
-        label: "Začať s týmto základom",
-        href: "mailto:hello@digital-a.sk",
+        label: "Rezervovať termín",
+        href: "#pricing",
       },
       secondaryCta: {
-        label: "Pozrieť Sanity setup",
-        href: "https://www.sanity.io/manage",
+        label: "Zavolať",
+        href: "tel:+421903555321",
       },
     },
     footer: {
+      brandName: "Psí SPA Box",
       tagline:
-        "Template system pre launch weby, lead gen a premium service landing pages.",
-      email: "hello@digital-a.sk",
-      location: "Bratislava / remote",
+        "Samoobslužná umyvárka pre psov s prístupom cez mobilný kód. Rýchlo, čisto a bez chaosu doma.",
+      email: "info@psispabox.sk",
+      phone: "+421 903 555 321",
+      location: "Bratislava",
     },
   },
   en: {
     locale: "en",
     seo: {
-      title: "Landing page template for Digital A",
+      title: "Dog SPA Box | Self-service dog wash 24/7",
       description:
-        "A modern Next.js landing page template for campaign launches, lead generation and premium service offers. Bilingual, SEO-ready and Sanity-connected.",
+        "Arrive with your dog, open the door with the code on your phone, wash, dry and leave without turning your bathroom into a mess. Simple self-service dog wash access 24/7.",
       keywords: [
-        "landing page template",
-        "next.js marketing template",
-        "sanity cms website",
-        "campaign landing page",
-        "digital a",
+        "self service dog wash",
+        "dog wash box",
+        "wash your dog",
+        "dog spa",
+        "dog wash bratislava",
       ],
     },
     navigation: [
-      { label: "Overview", href: "#overview" },
-      { label: "Blocks", href: "#features" },
-      { label: "Process", href: "#process" },
+      { label: "Why us", href: "#overview" },
+      { label: "Inside the box", href: "#features" },
+      { label: "Pricing", href: "#pricing" },
+      { label: "How it works", href: "#process" },
       { label: "FAQ", href: "#faq" },
       { label: "Contact", href: "#contact" },
     ],
     hero: {
-      eyebrow: "Landing page template for growth and launches",
-      titlePrefix: "A selling website for",
-      titleAccent: "high-intent campaigns",
-      titleSuffix: "and premium offer pages.",
+      eyebrow: "Self-service dog wash with mobile code access",
+      titlePrefix: "Arrive, enter the code and",
+      titleAccent: "wash your dog",
+      titleSuffix: "without the mess at home.",
       description:
-        "A premium Next.js starter for agencies, service brands and lead generation offers. Ready for SEO, bilingual routing, animated sections and Sanity editing.",
+        "After a muddy walk or before a visit. Book a time online, get a code on your phone and wash plus dry your dog in a clean private box without turning your bathroom into chaos.",
       primaryCta: {
-        label: "I want a custom version",
-        href: "#contact",
+        label: "Book a slot",
+        href: "#pricing",
       },
       secondaryCta: {
-        label: "See the blocks",
-        href: "#features",
+        label: "How it works",
+        href: "#process",
       },
       metrics: [
         {
-          value: "48h",
-          label: "to a strong first launch when your copy and brand assets are ready",
+          value: "24/7",
+          label: "booking and access whenever it works for you, without waiting for staff",
         },
         {
-          value: "2",
-          label: "locales available from day one without duplicating the codebase",
+          value: "30 min",
+          label: "a comfortable slot to wash and dry one dog without rushing",
         },
         {
-          value: "100%",
-          label: "of the core marketing copy can move into Sanity for editors",
+          value: "from €12",
+          label: "simple access without membership, just a booking and a code on your phone",
         },
       ],
       proof: [
-        "SK + EN routing",
-        "SEO metadata and sitemap",
-        "Motion microinteractions",
-        "Sanity-ready content model",
+        "Mobile door code",
+        "Warm water and drying",
+        "No cleanup at home",
+        "Private box for you and your dog",
       ],
     },
     highlights: [
       {
-        title: "Lead generation funnels",
+        title: "Your bathroom ends up full of fur, water and mud",
         description:
-          "Built for service brands, consultants, clinics or B2B offers that need clear positioning and focused calls to action.",
+          "What should be a quick wash becomes another cleaning session with towels everywhere, a wet floor and a messy drain.",
       },
       {
-        title: "Service offer pages",
+        title: "Washing a big dog at home is awkward and uncomfortable",
         description:
-          "Useful for agencies, studios and expert brands selling audits, retainers, redesigns or strategic service packages.",
+          "Lifting a dog into a tub, keeping them steady in a small bathroom and drying them afterwards is uncomfortable for both of you.",
       },
       {
-        title: "Launch microsites",
+        title: "After a walk you need a fast solution, not more logistics",
         description:
-          "A strong fit for new products, waitlists, events and time-sensitive campaigns where speed and design quality matter.",
+          "Whether it is rain, mud or snow, you want your dog clean quickly instead of bringing the mess all the way home.",
       },
     ],
     features: [
       {
-        eyebrow: "Positioning",
-        title: "A hero section that explains the offer fast",
+        eyebrow: "Privacy",
+        title: "The box is yours for the entire reservation",
         description:
-          "The headline, subheadline and CTA flow are structured to reduce friction and tell the visitor exactly what they are about to get.",
+          "No queues, no pressure, no one watching. You set the pace and give your dog space to calm down if needed.",
       },
       {
-        eyebrow: "Proof",
-        title: "Trust-building sections around the main CTA",
+        eyebrow: "Access",
+        title: "Enter with a one-time code sent to your phone",
         description:
-          "FAQ, proof strips, repeated calls to action and modular content blocks keep the conversion logic intact on longer pages.",
+          "The booking happens online and the code arrives before your visit. At the location you simply unlock the door and start.",
       },
       {
-        eyebrow: "Performance",
-        title: "A fast stack for search and campaign traffic",
+        eyebrow: "Equipment",
+        title: "Warm water, hand shower and a comfortable wash area",
         description:
-          "Next.js App Router, server rendering, metadata, sitemap and robots are included from the start instead of being patched in later.",
+          "You wash your dog in a space designed for it, not in an improvised home bathroom. Less stress, less mess.",
       },
       {
-        eyebrow: "Content",
-        title: "Client-friendly editing through Sanity",
+        eyebrow: "Drying",
+        title: "Wash and dry in one visit",
         description:
-          "Hero copy, feature cards, FAQ, CTA labels and contact details can move to the CMS so the team can iterate safely.",
+          "You do not have to leave with a wet dog or finish the job at home. Everything happens in one clean stop.",
       },
       {
-        eyebrow: "Localization",
-        title: "One structure, two language routes",
+        eyebrow: "Cleanliness",
+        title: "No fur, mud or water left behind in your own bathroom",
         description:
-          "Separate `/sk` and `/en` pages make indexing, internal linking and content expansion simpler over time.",
+          "The mess stays where it belongs. You leave with a clean dog instead of another cleanup job waiting at home.",
       },
       {
-        eyebrow: "Design system",
-        title: "A modern visual language without generic startup UI",
+        eyebrow: "Comfort",
+        title: "Great after regular walks and the really muddy ones too",
         description:
-          "Intentional typography, soft glass surfaces and controlled motion help the template feel more premium from the first view.",
+          "From a quick rinse of dirty paws to a full wash, the box is set up for everyday care and for the messier days.",
       },
     ],
     process: [
       {
-        title: "Choose the offer and the conversion goal",
+        title: "Book an available slot online",
         description:
-          "Start by deciding whether the page sells a strategy call, audit, lead magnet or launch. The headline and CTA hierarchy should support that single goal.",
+          "Pick the time that works for you. No calls, no waiting for manual confirmation.",
       },
       {
-        title: "Fill the content through Sanity or fallback data",
+        title: "Receive a one-time door code on your phone",
         description:
-          "You can launch without the CMS first. When your content model is ready in Sanity, the same sections can be managed from the editor interface.",
+          "Before the visit you get the access code. At the location you simply enter it and walk in.",
       },
       {
-        title: "Launch and iterate based on performance",
+        title: "Arrive with your dog, wash and dry as needed",
         description:
-          "The template is ready for future tracking, forms, extra sections, case studies and local SEO expansion when the campaign grows.",
+          "Everything essential is prepared inside the box. You just focus on your dog and move at your own pace.",
+      },
+      {
+        title: "Leave without taking the mess back home",
+        description:
+          "Instead of cleaning your bathroom afterwards, you leave with a clean dog and get on with your day.",
       },
     ],
     cms: {
-      eyebrow: "Sanity content layer",
-      title: "Editors can update the page without breaking the design.",
+      eyebrow: "Pricing",
+      title: "30 minutes in the box for €12. Everything essential is ready for you.",
       description:
-        "The frontend expects a `landingPage` document per locale. Once that exists in Sanity, hero copy, blocks, FAQ and CTA copy are read from the CMS.",
+        "No membership and no complicated packages. You simply reserve a slot, arrive with your dog and use the prepared self-service wash box.",
       items: [
-        "SEO title and meta description",
-        "Navigation and CTA labels",
-        "Hero copy and metrics",
-        "Feature cards",
-        "Process steps",
-        "FAQ entries",
+        "30 minutes of washing and drying",
+        "Warm water and hand shower",
+        "Shampoo and basic care products",
+        "Powerful dryer",
+        "Single-use access code",
+        "A clean box ready when you arrive",
       ],
       note:
-        "The project already points to the Sanity project ID `ypdwbs5t`. Add the dataset in your env file and create the schema described in the README.",
+        "If you have a large or very fluffy breed, reserve two slots in a row for extra comfort.",
     },
     proofStrip: [
-      "Next.js App Router",
-      "Tailwind CSS v4",
-      "Motion for React",
-      "Sanity CMS",
-      "Bilingual SEO routing",
-      "Metadata API",
-      "Sitemap + robots",
-      "Reusable sections",
+      "Self-service 24/7",
+      "Access code on your phone",
+      "Warm water",
+      "Powerful dryer",
+      "Shampoo included",
+      "No mess at home",
+      "Works for larger breeds",
+      "Fast and simple to use",
     ],
     faq: [
       {
-        question: "Do I need Sanity from day one?",
+        question: "How do I get inside?",
         answer:
-          "No. The template works with local fallback content first. You can switch to Sanity as soon as the dataset and `landingPage` schema are ready.",
+          "After booking you receive a one-time code on your phone. Enter it at the door and the box opens for your reserved time.",
       },
       {
-        question: "Can I use only one language?",
+        question: "Do I need to bring my own shampoo or dryer?",
         answer:
-          "Yes. You can work only with `/sk` or `/en`. The bilingual structure is ready but not mandatory.",
+          "Basic equipment and drying are ready on site. If your dog needs special cosmetics, you can still bring your own products.",
       },
       {
-        question: "Is this ready for SEO and marketing traffic?",
+        question: "Can I wash a larger dog there?",
         answer:
-          "Yes. The project includes metadata, sitemap, robots, clean locale URLs and server-rendered content, which is a strong baseline for both organic and paid traffic.",
+          "Yes. The box is designed to stay comfortable even with larger dogs. For very fluffy or large breeds we recommend booking a longer time.",
       },
       {
-        question: "Where do I change the colors, fonts and brand style?",
+        question: "What if I need to cancel or move my booking?",
         answer:
-          "The global design tokens live in `app/globals.css`, the layout and sections live in `app/[locale]/page.tsx`, and the fallback content is stored in `lib/landing-page.ts`.",
+          "You can define the cancellation rules in your reservation system and then show them clearly on the site in the FAQ or pricing note.",
       },
     ],
     finalCta: {
-      title: "Launch the next sales page without rebuilding the project from scratch.",
+      title: "After a walk, after the rain or before guests arrive, the box is ready.",
       description:
-        "This starter is already structured for future additions like forms, event tracking, more sections, references or broader Digital A integrations.",
+        "Reserve a time, unlock the door with your phone code and handle the wash quickly, cleanly and without stress for you or your dog.",
       primaryCta: {
-        label: "Start with this base",
-        href: "mailto:hello@digital-a.sk",
+        label: "Book now",
+        href: "#pricing",
       },
       secondaryCta: {
-        label: "Open Sanity setup",
-        href: "https://www.sanity.io/manage",
+        label: "Call us",
+        href: "tel:+421903555321",
       },
     },
     footer: {
+      brandName: "Dog SPA Box",
       tagline:
-        "A template system for launch sites, lead generation and premium service landing pages.",
-      email: "hello@digital-a.sk",
-      location: "Bratislava / remote",
+        "A self-service dog wash with access by mobile code. Fast, clean and much easier than doing it at home.",
+      email: "info@dogspabox.com",
+      phone: "+421 903 555 321",
+      location: "Bratislava",
     },
   },
 };
@@ -505,7 +601,7 @@ function mergeLandingPage(
   fallback: LandingPageData,
   incoming: PartialDeep<LandingPageData>,
 ): LandingPageData {
-  return {
+  const merged: LandingPageData = {
     ...fallback,
     ...incoming,
     locale: fallback.locale,
@@ -576,6 +672,8 @@ function mergeLandingPage(
       ...incoming.footer,
     },
   };
+
+  return sanitizeWithFallback(merged, fallback);
 }
 
 export const getLandingPage = cache(

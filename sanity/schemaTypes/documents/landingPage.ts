@@ -11,13 +11,13 @@ export const landingPage = defineType({
     { name: "seo", title: "SEO" },
     { name: "navigation", title: "Navigation" },
     { name: "hero", title: "Hero" },
-    { name: "overview", title: "Overview" },
-    { name: "features", title: "Features" },
-    { name: "process", title: "Process" },
-    { name: "cms", title: "CMS Section" },
+    { name: "overview", title: "Problem / Intro" },
+    { name: "features", title: "Benefits & Equipment" },
+    { name: "process", title: "How It Works" },
+    { name: "cms", title: "Pricing" },
     { name: "faq", title: "FAQ" },
-    { name: "finalCta", title: "Final CTA" },
-    { name: "footer", title: "Footer" },
+    { name: "finalCta", title: "Reservation CTA" },
+    { name: "footer", title: "Brand & Contact" },
   ],
   fields: [
     defineField({
@@ -66,7 +66,7 @@ export const landingPage = defineType({
     }),
     defineField({
       name: "highlights",
-      title: "Overview cards",
+      title: "Problem / intro cards",
       type: "array",
       group: "overview",
       of: [defineArrayMember({ type: "highlightItem" })],
@@ -74,7 +74,7 @@ export const landingPage = defineType({
     }),
     defineField({
       name: "proofStrip",
-      title: "Proof strip labels",
+      title: "Trust / quick info strip",
       type: "array",
       group: "overview",
       of: [defineArrayMember({ type: "string" })],
@@ -83,7 +83,7 @@ export const landingPage = defineType({
     }),
     defineField({
       name: "features",
-      title: "Feature cards",
+      title: "Benefits and equipment cards",
       type: "array",
       group: "features",
       of: [defineArrayMember({ type: "featureItem" })],
@@ -91,7 +91,7 @@ export const landingPage = defineType({
     }),
     defineField({
       name: "process",
-      title: "Process steps",
+      title: "How-it-works steps",
       type: "array",
       group: "process",
       of: [defineArrayMember({ type: "processStep" })],
@@ -99,7 +99,7 @@ export const landingPage = defineType({
     }),
     defineField({
       name: "cms",
-      title: "CMS section",
+      title: "Pricing section",
       type: "cmsSection",
       group: "cms",
       validation: (rule) => rule.required(),
