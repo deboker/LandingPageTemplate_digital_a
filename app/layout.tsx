@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
-const socialImage = `${siteUrl}/logo_spa-box.png`;
+const socialImage = `${siteUrl}/box_wash_social.webp`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: socialImage,
-        width: 699,
-        height: 699,
-        alt: "Psí SPA Box logo",
+        width: 1536,
+        height: 1024,
+        alt: "Psí SPA Box social preview",
       },
     ],
   },

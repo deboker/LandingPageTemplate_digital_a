@@ -22,10 +22,10 @@ const openGraphLocales: Record<Locale, string> = {
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
 const socialImage = {
-  url: `${siteUrl}/logo_spa-box.png`,
-  width: 699,
-  height: 699,
-  alt: "Psí SPA Box logo",
+  url: `${siteUrl}/box_wash_social.webp`,
+  width: 1536,
+  height: 1024,
+  alt: "Psí SPA Box social preview",
 } as const;
 
 const pageCopy: Record<
