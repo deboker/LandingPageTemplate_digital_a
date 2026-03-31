@@ -22,8 +22,8 @@ const openGraphLocales: Record<Locale, string> = {
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
 const socialImage = {
-  url: `${siteUrl}/box_wash_social.webp`,
-  width: 1536,
+  url: `${siteUrl}/petspabox_social_banner.jpg`,
+  width: 1024,
   height: 1024,
   alt: "Pet Spa Box social preview",
 } as const;
