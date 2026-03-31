@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Script from "next/script";
 import type { Locale } from "@/lib/locales";
 
@@ -15,47 +14,27 @@ export function ReservantoBooking({ locale }: ReservantoBookingProps) {
     locale === "sk"
       ? {
           eyebrow: "Rezervácia",
-          title: "Vyber si slot online a otvor rezerváciu priamo na webe.",
+          title: "Vyber si termín a rezervuj si box online.",
           description:
-            "Rezervácia je vložená priamo na stránke cez Reservanto. Stačí si vybrať termín, potvrdiť slot a pokračovať podľa flow, ktorý si nastavíš v Reservante.",
+            "Všetky hlavné tlačidlá Rezervovať vedú sem. Stačí si vybrať voľný termín, potvrdiť rezerváciu a potom prísť s miláčikom na svoj slot.",
           highlights: [
-            "Rezervácia bez odchodu z webu",
+            "Rezervácia priamo na webe",
+            "Výber voľného termínu online",
             "Vhodné pre mobil aj desktop",
-            "Všetky hlavné CTA buttony vedú sem",
           ],
           frameTitle: "Reservanto rezervácia Pet Spa Box",
-          helperTitle: "Čo je už zapojené",
-          helperDescription:
-            "Rezervačný formulár je pripravený priamo v sekcii nižšie. Ak neskôr zmeníš Reservanto formulár, stačí vymeniť jeho ID bez prerábky layoutu.",
-          helperSteps: [
-            "Hero, header aj finálne CTA vedú na túto booking sekciu.",
-            "Formulár je vložený priamo cez oficiálny Reservanto embed script.",
-            "Neskôr vieš len zmeniť ID formulára v env premennej a deploynúť web.",
-          ],
-          helperCta: "Aktuálne používame Reservanto formulár s ID 24877.",
-          envLabel: "Možnosť neskoršej zmeny",
         }
       : {
           eyebrow: "Booking",
-          title: "Choose your slot online and keep the booking flow on the site.",
+          title: "Choose your time and book the wash box online.",
           description:
-            "The booking form is embedded directly on the page through Reservanto. Visitors can choose a time without leaving the website.",
+            "All main booking buttons lead here. Pick an available time, confirm the booking and arrive with your pet for the reserved slot.",
           highlights: [
-            "Booking without leaving the website",
+            "Booking directly on the site",
+            "Choose an available slot online",
             "Works well on mobile and desktop",
-            "All main booking CTAs lead here",
           ],
           frameTitle: "Reservanto booking form for Pet Spa Box",
-          helperTitle: "What is already connected",
-          helperDescription:
-            "The live booking form is rendered below. If you switch to another Reservanto form later, you only need to replace the form ID.",
-          helperSteps: [
-            "Hero, header and final CTAs all point to this booking section.",
-            "The form is loaded through the official Reservanto embed script.",
-            "You can swap the form ID later through an env variable and redeploy.",
-          ],
-          helperCta: "The current Reservanto form ID is 24877.",
-          envLabel: "Optional future override",
         };
 
   return (
@@ -91,18 +70,6 @@ export function ReservantoBooking({ locale }: ReservantoBookingProps) {
               </div>
             ))}
           </div>
-
-          <div className="mt-6 rounded-[1.4rem] border border-dashed border-slate-900/14 bg-slate-50 px-5 py-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
-              {sectionCopy.envLabel}
-            </p>
-            <code className="mt-3 block text-sm font-semibold text-slate-950">
-              NEXT_PUBLIC_RESERVANTO_FORM_ID
-            </code>
-            <p className="mt-3 text-sm leading-7 text-slate-600">
-              {sectionCopy.helperCta}
-            </p>
-          </div>
         </div>
 
         <div className="overflow-hidden rounded-[1.9rem] border border-slate-900/8 bg-white/78 shadow-[0_20px_60px_rgba(15,23,42,0.06)]">
@@ -115,51 +82,6 @@ export function ReservantoBooking({ locale }: ReservantoBookingProps) {
                 aria-label={sectionCopy.frameTitle}
               />
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="rounded-[1.8rem] border border-slate-900/8 bg-white/76 p-6 shadow-[0_18px_56px_rgba(15,23,42,0.04)]">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
-          {sectionCopy.helperTitle}
-        </p>
-        <p className="mt-4 max-w-3xl text-base leading-8 text-slate-600">
-          {sectionCopy.helperDescription}
-        </p>
-        <div className="mt-6 grid gap-3 md:grid-cols-3">
-          {sectionCopy.helperSteps.map((step, index) => (
-            <div
-              key={step}
-              className="rounded-[1rem] border border-slate-900/8 bg-slate-50 px-4 py-4"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
-                {locale === "sk" ? "Krok" : "Step"} 0{index + 1}
-              </p>
-              <p className="mt-2 text-sm font-medium leading-6 text-slate-900">
-                {step}
-              </p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm leading-7 text-slate-600">
-            {sectionCopy.helperCta}
-          </p>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="https://www.reservanto.sk/"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-slate-950 px-6 py-3.5 text-sm font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5 hover:bg-slate-800"
-            >
-              {locale === "sk" ? "Otvoriť Reservanto" : "Open Reservanto"}
-            </Link>
-            <Link
-              href="#contact"
-              className="inline-flex items-center justify-center rounded-full border border-slate-900/10 bg-white/70 px-6 py-3.5 text-sm font-semibold text-slate-900 transition-transform duration-300 hover:-translate-y-0.5 hover:border-slate-900/20 hover:bg-white"
-            >
-              {locale === "sk" ? "Ozvať sa" : "Contact us"}
-            </Link>
           </div>
         </div>
       </div>
