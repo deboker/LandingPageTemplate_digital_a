@@ -11,7 +11,7 @@ export const landingPageQuery = groq`*[_type == "landingPage" && _id == $documen
       title,
       subtitle,
       alt,
-      "imageUrl": image.asset->url
+      "imageUrl": coalesce(image.asset->url, imageUrl)
     }
   },
   overviewSection,

@@ -66,6 +66,21 @@ Schema files live in the `sanity/` folder. Editors get two fixed entries:
 
 Each document is split into section tabs such as Hero, Overview, Features, Process, FAQ, Footer and SEO.
 
+## Seed current content into Sanity
+
+If you want to prefill Sanity with the current homepage copy and gallery image URLs, use the provided import file:
+
+```bash
+npx sanity dataset import sanity/seed/landing-page.ndjson production --replace
+```
+
+This import creates or replaces:
+
+- `landingPage-sk`
+- `landingPage-en`
+
+Gallery images in this seed use external URLs so you do not need to upload them manually first. You can later replace them in Studio with uploaded Sanity assets.
+
 ## Netlify deploy
 
 This project is ready for Netlify with the built-in Next.js support.
