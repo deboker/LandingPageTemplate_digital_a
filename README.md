@@ -96,6 +96,7 @@ Environment variables should be set in the Netlify UI, not in `netlify.toml`, be
 Add these variables in Netlify:
 
 - `NEXT_PUBLIC_SITE_URL=https://your-domain.com`
+- `NEXT_PUBLIC_RESERVANTO_FORM_ID=` optional, add your Reservanto form ID to enable the live booking iframe
 - `NEXT_PUBLIC_SANITY_PROJECT_ID=ypdwbs5t`
 - `NEXT_PUBLIC_SANITY_DATASET=production`
 - `NEXT_PUBLIC_SANITY_API_VERSION=2026-03-30`

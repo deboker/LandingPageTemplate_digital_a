@@ -270,7 +270,7 @@ const fallbackContent: Record<Locale, LandingPageData> = {
         "Žiadne preberanie kľúčov ani čakanie na personál. Online rezervácia, kód do mobilu a rýchla samoobslužná návšteva, keď ti to sedí.",
       primaryCta: {
         label: "Rezervovať slot",
-        href: "#pricing",
+        href: "#booking",
       },
       secondaryCta: {
         label: "Ako to funguje",
@@ -515,7 +515,7 @@ const fallbackContent: Record<Locale, LandingPageData> = {
         "Rezervuj si čas, otvor dvere kódom z mobilu a vybav kúpanie rýchlo, čisto a bez stresu pre seba aj miláčika.",
       primaryCta: {
         label: "Rezervovať termín",
-        href: "#pricing",
+        href: "#booking",
       },
       secondaryCta: {
         label: "Zavolať",
@@ -571,7 +571,7 @@ const fallbackContent: Record<Locale, LandingPageData> = {
         "No key handover and no waiting for staff. Online booking, code on your phone and a fast self-service visit whenever it suits you.",
       primaryCta: {
         label: "Book a slot",
-        href: "#pricing",
+        href: "#booking",
       },
       secondaryCta: {
         label: "How it works",
@@ -815,7 +815,7 @@ const fallbackContent: Record<Locale, LandingPageData> = {
         "Reserve a time, unlock the door with your phone code and handle the wash quickly, cleanly and without stress for you or your pet.",
       primaryCta: {
         label: "Book now",
-        href: "#pricing",
+        href: "#booking",
       },
       secondaryCta: {
         label: "Call us",

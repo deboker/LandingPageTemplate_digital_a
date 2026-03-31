@@ -5,9 +5,10 @@ import { notFound } from "next/navigation";
 import { FadeIn } from "@/components/site/fade-in";
 import { Float } from "@/components/site/float";
 import { ContactRail } from "@/components/site/contact-rail";
+import { ReservantoBooking } from "@/components/site/reservanto-booking";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
-import { getLandingPage } from "@/lib/landing-page";
+import { getLandingPage, type Cta } from "@/lib/landing-page";
 import { isLocale, locales, type Locale } from "@/lib/locales";
 
 const languageAlternates = {
@@ -101,6 +102,8 @@ export default async function LocalePage({ params }: PageProps) {
   const { content } = await getLandingPage(locale);
   const ui = uiCopy[locale];
   const galleryItems = content.gallery.items;
+  const heroPrimaryCta = resolveBookingCta(content.hero.primaryCta, locale);
+  const finalPrimaryCta = resolveBookingCta(content.finalCta.primaryCta, locale);
 
   return (
     <div lang={locale} className="site-shell relative overflow-hidden">
@@ -111,12 +114,12 @@ export default async function LocalePage({ params }: PageProps) {
         locale={locale}
         brandName={content.footer.brandName}
         navigation={content.navigation}
-        primaryCta={content.hero.primaryCta}
+        primaryCta={heroPrimaryCta}
       />
       <ContactRail
         locale={locale}
         footer={content.footer}
-        primaryCta={content.hero.primaryCta}
+        primaryCta={heroPrimaryCta}
       />
 
       <main className="mx-auto flex w-full max-w-none flex-col gap-16 px-6 pb-20 pt-8 sm:px-8 lg:px-14 lg:pt-10 xl:px-20 2xl:px-24">
@@ -148,10 +151,10 @@ export default async function LocalePage({ params }: PageProps) {
 
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link
-                  href={content.hero.primaryCta.href}
+                  href={heroPrimaryCta.href}
                   className={primaryButtonClass}
                 >
-                  {content.hero.primaryCta.label}
+                  {heroPrimaryCta.label}
                 </Link>
                 <Link
                   href={content.hero.secondaryCta.href}
@@ -448,6 +451,9 @@ export default async function LocalePage({ params }: PageProps) {
             <p className="rounded-[1.4rem] border border-dashed border-slate-900/12 bg-slate-50 px-5 py-4 text-sm leading-7 text-slate-600">
               {content.cms.note}
             </p>
+            <Link href="#booking" className={primaryButtonClass}>
+              {locale === "sk" ? "Otvoriť rezerváciu" : "Open booking"}
+            </Link>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
@@ -466,6 +472,8 @@ export default async function LocalePage({ params }: PageProps) {
             ))}
           </div>
         </FadeIn>
+
+        <ReservantoBooking locale={locale} />
 
         <section id="locations" className="grid gap-8">
           <SectionLead
@@ -567,10 +575,10 @@ export default async function LocalePage({ params }: PageProps) {
 
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link
-                href={content.finalCta.primaryCta.href}
+                href={finalPrimaryCta.href}
                 className="inline-flex items-center justify-center rounded-full bg-[var(--brand)] px-6 py-3.5 text-sm font-semibold text-slate-950 transition-transform duration-300 hover:-translate-y-0.5"
               >
-                {content.finalCta.primaryCta.label}
+                {finalPrimaryCta.label}
               </Link>
               <Link
                 href={content.finalCta.secondaryCta.href}
@@ -590,6 +598,18 @@ export default async function LocalePage({ params }: PageProps) {
       />
     </div>
   );
+}
+
+function resolveBookingCta(cta: Cta, locale: Locale): Cta {
+  const label = cta.label.toLowerCase();
+  const bookingKeywords =
+    locale === "sk" ? ["rezerv"] : ["book", "reserve", "booking"];
+  const shouldPointToBooking =
+    cta.href === "#pricing" ||
+    cta.href === "#booking" ||
+    bookingKeywords.some((keyword) => label.includes(keyword));
+
+  return shouldPointToBooking ? { ...cta, href: "#booking" } : cta;
 }
 
 function SectionLead({
