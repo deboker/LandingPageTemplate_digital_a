@@ -28,196 +28,10 @@ const socialImage = {
   alt: "Psí SPA Box social preview",
 } as const;
 
-const pageCopy: Record<
-  Locale,
-  {
-    heroBadge: string;
-    heroPanel: {
-      eyebrow: string;
-      status: string;
-      kicker: string;
-      title: string;
-      description: string;
-    };
-    sideHighlightsTitle: string;
-    sideIncludedTitle: string;
-    overview: {
-      eyebrow: string;
-      title: string;
-      description: string;
-    };
-    features: {
-      eyebrow: string;
-      title: string;
-      description: string;
-    };
-    process: {
-      eyebrow: string;
-      title: string;
-      description: string;
-    };
-    pricing: {
-      itemLabel: string;
-    };
-    gallery: {
-      eyebrow: string;
-      title: string;
-      description: string;
-      items: Array<{
-        title: string;
-        subtitle: string;
-        alt: string;
-      }>;
-    };
-    faq: {
-      eyebrow: string;
-      title: string;
-      description: string;
-    };
-    finalCtaEyebrow: string;
-  }
-> = {
-  sk: {
-    heroBadge: "Vstup cez kód",
-    heroPanel: {
-      eyebrow: "Ako to funguje",
-      status: "Vstup cez kód",
-      kicker: "Pripravené pre teba",
-      title: "Prídeš so psom, zadáš kód a box je tvoj.",
-      description:
-        "Žiadne preberanie kľúčov ani čakanie na personál. Online rezervácia, kód do mobilu a rýchla samoobslužná návšteva, keď ti to sedí.",
-    },
-    sideHighlightsTitle: "Najčastejšie situácie",
-    sideIncludedTitle: "V boxe máš",
-    overview: {
-      eyebrow: "Poznáš tento scenár?",
-      title: "Psík je špinavý, ale doma sa ti nechce robiť ďalšiu malú povodeň.",
-      description:
-        "Po prechádzke v daždi, po lese alebo po blate potrebuješ rýchle riešenie. Umyješ ho u nás a domov ideš bez neporiadku v kúpeľni.",
-    },
-    features: {
-      eyebrow: "Prečo ľudia prídu práve sem",
-      title: "Jednoduché, čisté a bez zbytočného stresu pre teba aj psa.",
-      description:
-        "Súkromný box, vybavenie pripravené na mieste a žiadne upratovanie doma. Presne preto sa sem ľudia vracajú znovu.",
-    },
-    process: {
-      eyebrow: "Ako to funguje",
-      title: "Rezervácia, kód, otvoríš dvere a vybavené.",
-      description:
-        "Vyberieš si čas, príde ti kód do mobilu a na mieste nič neriešiš. Len prídeš, otvoríš box a umyješ psíka.",
-    },
-    pricing: {
-      itemLabel: "V cene",
-    },
-    gallery: {
-      eyebrow: "Ako to u nás vyzerá",
-      title: "Miesto, kde psíka umyješ rýchlo, pohodlne a bez chaosu doma.",
-      description:
-        "Prídeš, otvoríš box, umyješ psíka, vysušíš ho a ideš ďalej. Žiadna mokrá kúpeľňa, chlpy vo vani ani ďalšie upratovanie doma.",
-      items: [
-        {
-          title: "Pohodlné umytie",
-          subtitle: "Teplá voda, priestor a pokoj na kúpanie bez stresu.",
-          alt: "Veľký pes pri kúpaní v čistom umývacom priestore.",
-        },
-        {
-          title: "Čistý a spokojný výsledok",
-          subtitle: "Po návšteve odchádzaš s čistým psom, nie s ďalšou robotou doma.",
-          alt: "Čistý a upravený malý pes po starostlivosti.",
-        },
-        {
-          title: "Detailná starostlivosť",
-          subtitle: "Rýchle opláchnutie aj dôkladnejšia údržba podľa potreby.",
-          alt: "Detail starostlivosti o srsť psa pri úprave.",
-        },
-      ],
-    },
-    faq: {
-      eyebrow: "FAQ",
-      title: "Otázky, ktoré si ľudia kladú skôr, než prídu prvý raz.",
-      description:
-        "Všetko podstatné o vstupe, rezervácii aj vybavení nájdeš tu na jednom mieste.",
-    },
-    finalCtaEyebrow: "Rezervácia",
-  },
-  en: {
-    heroBadge: "Code access",
-    heroPanel: {
-      eyebrow: "How it works",
-      status: "Code entry",
-      kicker: "Ready for your visit",
-      title: "You arrive with your dog, enter the code and the box is yours.",
-      description:
-        "No key handover and no waiting for staff. Online booking, code on your phone and a fast self-service visit whenever it suits you.",
-    },
-    sideHighlightsTitle: "Typical situations",
-    sideIncludedTitle: "Inside the box",
-    overview: {
-      eyebrow: "Know this feeling?",
-      title: "The dog is dirty, but you do not want to flood your bathroom again.",
-      description:
-        "After rain, mud or a long walk you need a fast solution. Wash your dog here and go home without turning your bathroom into a mess.",
-    },
-    features: {
-      eyebrow: "Why people choose this",
-      title: "Simple, clean and much less stressful for you and your dog.",
-      description:
-        "A private box, ready-to-use equipment and no cleanup waiting at home. That is exactly why people come back.",
-    },
-    process: {
-      eyebrow: "How it works",
-      title: "Book, get the code, open the door and you are in.",
-      description:
-        "Choose a time, receive the code on your phone and arrive without dealing with staff or keys. Just open the door and start.",
-    },
-    pricing: {
-      itemLabel: "Included",
-    },
-    gallery: {
-      eyebrow: "What it feels like",
-      title: "A place where you can wash your dog quickly, comfortably and without the mess at home.",
-      description:
-        "You arrive, unlock the box, wash your dog, dry the coat and leave. No wet bathroom, no hair in the tub and no extra cleanup waiting at home.",
-      items: [
-        {
-          title: "Comfortable wash",
-          subtitle: "Warm water, space and a calmer experience for both of you.",
-          alt: "Large dog being washed in a clean bathing area.",
-        },
-        {
-          title: "Clean result",
-          subtitle: "You leave with a clean dog instead of another cleanup task at home.",
-          alt: "Small clean dog after grooming care.",
-        },
-        {
-          title: "Practical care",
-          subtitle: "From a quick rinse to more complete maintenance when needed.",
-          alt: "Close-up of dog coat care during grooming.",
-        },
-      ],
-    },
-    faq: {
-      eyebrow: "FAQ",
-      title: "Questions people ask before their first visit.",
-      description:
-        "Everything important about access, booking and equipment is here in one place.",
-    },
-    finalCtaEyebrow: "Booking",
-  },
+const uiCopy: Record<Locale, { stepLabel: string }> = {
+  sk: { stepLabel: "Krok" },
+  en: { stepLabel: "Step" },
 };
-
-const photoGallery = [
-  {
-    src: "https://cdn.pixabay.com/photo/2016/02/03/23/24/dog-1178365_1280.jpg",
-  },
-  {
-    src: "https://cdn.pixabay.com/photo/2022/11/02/17/39/dog-7565683_1280.jpg",
-  },
-  {
-    src: "https://cdn.pixabay.com/photo/2022/11/02/17/39/dog-7565682_1280.jpg",
-  },
-] as const;
 
 const primaryButtonClass =
   "inline-flex items-center justify-center rounded-full bg-slate-950 px-6 py-3.5 text-sm font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5 hover:bg-slate-800";
@@ -280,7 +94,8 @@ export default async function LocalePage({ params }: PageProps) {
   }
 
   const { content } = await getLandingPage(locale);
-  const copy = pageCopy[locale];
+  const ui = uiCopy[locale];
+  const galleryItems = content.gallery.items;
 
   return (
     <div lang={locale} className="site-shell relative overflow-hidden">
@@ -309,7 +124,7 @@ export default async function LocalePage({ params }: PageProps) {
                   {content.hero.eyebrow}
                 </span>
                 <span className="rounded-full bg-sky-200 px-4 py-2 text-[11px] text-slate-950">
-                  {copy.heroBadge}
+                  {content.hero.badge}
                 </span>
               </div>
 
@@ -355,13 +170,13 @@ export default async function LocalePage({ params }: PageProps) {
 
             <div className="grid gap-4 lg:pl-6">
               <Float className="group relative overflow-hidden rounded-[2rem] border border-slate-900/8 bg-slate-950 shadow-[0_24px_90px_rgba(15,23,42,0.22)]">
-                <div className="absolute inset-0">
-                  <Image
-                    src={photoGallery[0].src}
-                    alt={copy.gallery.items[0].alt}
-                    fill
-                    priority
-                    className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  <div className="absolute inset-0">
+                    <Image
+                      src={galleryItems[0].imageUrl}
+                      alt={galleryItems[0].alt}
+                      fill
+                      priority
+                      className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                     sizes="(min-width: 1024px) 40vw, 100vw"
                   />
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.12),rgba(15,23,42,0.72))]" />
@@ -369,19 +184,19 @@ export default async function LocalePage({ params }: PageProps) {
 
                 <div className="relative flex min-h-[25rem] flex-col justify-between p-6 text-white">
                   <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.28em] text-white/72">
-                    <span>{copy.heroPanel.eyebrow}</span>
-                    <span>{copy.heroPanel.status}</span>
+                    <span>{content.hero.panelEyebrow}</span>
+                    <span>{content.hero.panelStatus}</span>
                   </div>
 
                   <div className="max-w-lg space-y-4">
                     <span className="inline-flex rounded-full border border-white/18 bg-white/12 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/78 backdrop-blur">
-                      {copy.heroPanel.kicker}
+                      {content.hero.panelKicker}
                     </span>
                     <p className="text-3xl font-semibold tracking-[-0.04em] text-white">
-                      {copy.heroPanel.title}
+                      {content.hero.panelTitle}
                     </p>
                     <p className="max-w-md text-sm leading-7 text-white/78">
-                      {copy.heroPanel.description}
+                      {content.hero.panelDescription}
                     </p>
                   </div>
                 </div>
@@ -394,8 +209,8 @@ export default async function LocalePage({ params }: PageProps) {
                 >
                   <div className="absolute inset-0">
                     <Image
-                      src={photoGallery[1].src}
-                      alt={copy.gallery.items[1].alt}
+                      src={galleryItems[1].imageUrl}
+                      alt={galleryItems[1].alt}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
                       sizes="(min-width: 768px) 22vw, 100vw"
@@ -404,13 +219,13 @@ export default async function LocalePage({ params }: PageProps) {
                   </div>
                   <div className="relative flex min-h-[15rem] flex-col justify-end p-5 text-white">
                     <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/70">
-                      {copy.sideHighlightsTitle}
+                      {content.gallery.sideHighlightsTitle}
                     </p>
                     <p className="mt-3 text-xl font-semibold tracking-[-0.03em]">
-                      {copy.gallery.items[1].title}
+                      {galleryItems[1].title}
                     </p>
                     <p className="mt-2 text-sm leading-6 text-white/78">
-                      {copy.gallery.items[1].subtitle}
+                      {galleryItems[1].subtitle}
                     </p>
                   </div>
                 </Float>
@@ -421,8 +236,8 @@ export default async function LocalePage({ params }: PageProps) {
                 >
                   <div className="absolute inset-0">
                     <Image
-                      src={photoGallery[2].src}
-                      alt={copy.gallery.items[2].alt}
+                      src={galleryItems[2].imageUrl}
+                      alt={galleryItems[2].alt}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
                       sizes="(min-width: 768px) 22vw, 100vw"
@@ -432,13 +247,13 @@ export default async function LocalePage({ params }: PageProps) {
                   <div className="relative flex min-h-[15rem] flex-col justify-between p-5 text-white">
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/70">
-                        {copy.sideIncludedTitle}
+                        {content.gallery.sideIncludedTitle}
                       </p>
                       <p className="mt-3 text-xl font-semibold tracking-[-0.03em]">
-                        {copy.gallery.items[2].title}
+                        {galleryItems[2].title}
                       </p>
                       <p className="mt-2 text-sm leading-6 text-white/78">
-                        {copy.gallery.items[2].subtitle}
+                        {galleryItems[2].subtitle}
                       </p>
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -488,13 +303,13 @@ export default async function LocalePage({ params }: PageProps) {
 
         <section className="grid gap-8">
           <SectionLead
-            eyebrow={copy.gallery.eyebrow}
-            title={copy.gallery.title}
-            description={copy.gallery.description}
+            eyebrow={content.gallery.eyebrow}
+            title={content.gallery.title}
+            description={content.gallery.description}
           />
 
           <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr_0.8fr]">
-            {copy.gallery.items.map((item, index) => (
+            {galleryItems.map((item, index) => (
               <FadeIn
                 key={item.title}
                 delay={index * 0.08}
@@ -503,7 +318,7 @@ export default async function LocalePage({ params }: PageProps) {
                 }`}
               >
                 <Image
-                  src={photoGallery[index].src}
+                  src={item.imageUrl}
                   alt={item.alt}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
@@ -529,9 +344,9 @@ export default async function LocalePage({ params }: PageProps) {
 
         <section id="overview" className="grid gap-8">
           <SectionLead
-            eyebrow={copy.overview.eyebrow}
-            title={copy.overview.title}
-            description={copy.overview.description}
+            eyebrow={content.overviewSection.eyebrow}
+            title={content.overviewSection.title}
+            description={content.overviewSection.description}
           />
 
           <div className="grid gap-4 lg:grid-cols-3">
@@ -557,9 +372,9 @@ export default async function LocalePage({ params }: PageProps) {
 
         <section id="features" className="grid gap-8">
           <SectionLead
-            eyebrow={copy.features.eyebrow}
-            title={copy.features.title}
-            description={copy.features.description}
+            eyebrow={content.featuresSection.eyebrow}
+            title={content.featuresSection.title}
+            description={content.featuresSection.description}
           />
 
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -585,9 +400,9 @@ export default async function LocalePage({ params }: PageProps) {
 
         <section id="process" className="grid gap-8">
           <SectionLead
-            eyebrow={copy.process.eyebrow}
-            title={copy.process.title}
-            description={copy.process.description}
+            eyebrow={content.processSection.eyebrow}
+            title={content.processSection.title}
+            description={content.processSection.description}
           />
 
           <div className="grid gap-4 lg:grid-cols-3">
@@ -598,7 +413,7 @@ export default async function LocalePage({ params }: PageProps) {
                 className="rounded-[1.8rem] border border-slate-900/8 bg-slate-950 p-6 text-white shadow-[0_28px_80px_rgba(15,23,42,0.2)]"
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/45">
-                  {locale === "sk" ? "Krok" : "Step"} 0{index + 1}
+                  {ui.stepLabel} 0{index + 1}
                 </p>
                 <h3 className="mt-4 text-2xl font-semibold tracking-[-0.03em]">
                   {step.title}
@@ -637,7 +452,7 @@ export default async function LocalePage({ params }: PageProps) {
                 className="rounded-[1.5rem] border border-slate-900/8 bg-slate-50 px-5 py-5"
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
-                  {copy.pricing.itemLabel} 0{index + 1}
+                  {content.cms.itemLabel} 0{index + 1}
                 </p>
                 <p className="mt-3 text-lg font-semibold tracking-[-0.02em] text-slate-950">
                   {item}
@@ -649,9 +464,9 @@ export default async function LocalePage({ params }: PageProps) {
 
         <section id="faq" className="grid gap-8">
           <SectionLead
-            eyebrow={copy.faq.eyebrow}
-            title={copy.faq.title}
-            description={copy.faq.description}
+            eyebrow={content.faqSection.eyebrow}
+            title={content.faqSection.title}
+            description={content.faqSection.description}
           />
 
           <div className="grid gap-4">
@@ -681,7 +496,7 @@ export default async function LocalePage({ params }: PageProps) {
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
             <div className="space-y-4">
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/50">
-                {copy.finalCtaEyebrow}
+                {content.finalCta.eyebrow}
               </p>
               <h2 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">
                 {content.finalCta.title}

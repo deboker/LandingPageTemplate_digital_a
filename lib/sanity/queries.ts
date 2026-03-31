@@ -5,11 +5,24 @@ export const landingPageQuery = groq`*[_type == "landingPage" && _id == $documen
   seo,
   navigation,
   hero,
+  gallery{
+    ...,
+    items[]{
+      title,
+      subtitle,
+      alt,
+      "imageUrl": image.asset->url
+    }
+  },
+  overviewSection,
   highlights,
+  featuresSection,
   features,
+  processSection,
   process,
   cms,
   proofStrip,
+  faqSection,
   faq,
   finalCta,
   footer

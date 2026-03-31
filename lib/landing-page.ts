@@ -20,6 +20,12 @@ export type Metric = {
   label: string;
 };
 
+export type SectionIntro = {
+  eyebrow: string;
+  title: string;
+  description: string;
+};
+
 export type Highlight = {
   title: string;
   description: string;
@@ -41,6 +47,13 @@ export type FaqItem = {
   answer: string;
 };
 
+export type GalleryItem = {
+  title: string;
+  subtitle: string;
+  alt: string;
+  imageUrl: string;
+};
+
 export type FooterContent = {
   brandName: string;
   tagline: string;
@@ -58,29 +71,49 @@ export type LandingPageData = {
   };
   navigation: NavItem[];
   hero: {
+    badge: string;
     eyebrow: string;
     titlePrefix: string;
     titleAccent: string;
     titleSuffix: string;
     description: string;
+    panelEyebrow: string;
+    panelStatus: string;
+    panelKicker: string;
+    panelTitle: string;
+    panelDescription: string;
     primaryCta: Cta;
     secondaryCta: Cta;
     metrics: Metric[];
     proof: string[];
   };
+  gallery: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    sideHighlightsTitle: string;
+    sideIncludedTitle: string;
+    items: GalleryItem[];
+  };
+  overviewSection: SectionIntro;
   highlights: Highlight[];
+  featuresSection: SectionIntro;
   features: Feature[];
+  processSection: SectionIntro;
   process: Step[];
   cms: {
     eyebrow: string;
     title: string;
     description: string;
+    itemLabel: string;
     items: string[];
     note: string;
   };
   proofStrip: string[];
+  faqSection: SectionIntro;
   faq: FaqItem[];
   finalCta: {
+    eyebrow: string;
     title: string;
     description: string;
     primaryCta: Cta;
@@ -206,12 +239,19 @@ const fallbackContent: Record<Locale, LandingPageData> = {
       { label: "Kontakt", href: "#contact" },
     ],
     hero: {
+      badge: "Vstup cez kód",
       eyebrow: "Samoobslužná psia umyvárka s prístupom cez kód",
       titlePrefix: "Prídeš, zadáš kód a",
       titleAccent: "umyješ psíka",
       titleSuffix: "bez neporiadku doma.",
       description:
         "Po prechádzke, po blate alebo pred návštevou. Rezervuješ si slot online, kód dostaneš do mobilu a v čistom boxe psíka rýchlo umyješ aj vysušíš bez chaosu v kúpeľni.",
+      panelEyebrow: "Ako to funguje",
+      panelStatus: "Vstup cez kód",
+      panelKicker: "Pripravené pre teba",
+      panelTitle: "Prídeš so psom, zadáš kód a box je tvoj.",
+      panelDescription:
+        "Žiadne preberanie kľúčov ani čakanie na personál. Online rezervácia, kód do mobilu a rýchla samoobslužná návšteva, keď ti to sedí.",
       primaryCta: {
         label: "Rezervovať slot",
         href: "#pricing",
@@ -241,6 +281,45 @@ const fallbackContent: Record<Locale, LandingPageData> = {
         "Súkromný box len pre teba a psa",
       ],
     },
+    gallery: {
+      eyebrow: "Ako to u nás vyzerá",
+      title: "Miesto, kde psíka umyješ rýchlo, pohodlne a bez chaosu doma.",
+      description:
+        "Prídeš, otvoríš box, umyješ psíka, vysušíš ho a ideš ďalej. Žiadna mokrá kúpeľňa, chlpy vo vani ani ďalšie upratovanie doma.",
+      sideHighlightsTitle: "Najčastejšie situácie",
+      sideIncludedTitle: "V boxe máš",
+      items: [
+        {
+          title: "Pohodlné umytie",
+          subtitle: "Teplá voda, priestor a pokoj na kúpanie bez stresu.",
+          alt: "Veľký pes pri kúpaní v čistom umývacom priestore.",
+          imageUrl:
+            "https://cdn.pixabay.com/photo/2016/02/03/23/24/dog-1178365_1280.jpg",
+        },
+        {
+          title: "Čistý a spokojný výsledok",
+          subtitle:
+            "Po návšteve odchádzaš s čistým psom, nie s ďalšou robotou doma.",
+          alt: "Čistý a upravený malý pes po starostlivosti.",
+          imageUrl:
+            "https://cdn.pixabay.com/photo/2022/11/02/17/39/dog-7565683_1280.jpg",
+        },
+        {
+          title: "Detailná starostlivosť",
+          subtitle: "Rýchle opláchnutie aj dôkladnejšia údržba podľa potreby.",
+          alt: "Detail starostlivosti o srsť psa pri úprave.",
+          imageUrl:
+            "https://cdn.pixabay.com/photo/2022/11/02/17/39/dog-7565682_1280.jpg",
+        },
+      ],
+    },
+    overviewSection: {
+      eyebrow: "Poznáš tento scenár?",
+      title:
+        "Psík je špinavý, ale doma sa ti nechce robiť ďalšiu malú povodeň.",
+      description:
+        "Po prechádzke v daždi, po lese alebo po blate potrebuješ rýchle riešenie. Umyješ ho u nás a domov ideš bez neporiadku v kúpeľni.",
+    },
     highlights: [
       {
         title: "Doma ostáva vaňa plná chlpov, blata a vody",
@@ -258,6 +337,12 @@ const fallbackContent: Record<Locale, LandingPageData> = {
           "Prídeš zo špinavej prechádzky, z lesa alebo z dažďa a chceš mať psa čistého za chvíľu, nie zablatiť celý byt cestou domov.",
       },
     ],
+    featuresSection: {
+      eyebrow: "Prečo ľudia prídu práve sem",
+      title: "Jednoduché, čisté a bez zbytočného stresu pre teba aj psa.",
+      description:
+        "Súkromný box, vybavenie pripravené na mieste a žiadne upratovanie doma. Presne preto sa sem ľudia vracajú znovu.",
+    },
     features: [
       {
         eyebrow: "Súkromie",
@@ -296,6 +381,12 @@ const fallbackContent: Record<Locale, LandingPageData> = {
           "Či ide len o rýchle opláchnutie labiek alebo kompletné kúpanie, box máš pripravený na každodennú aj náročnejšiu údržbu.",
       },
     ],
+    processSection: {
+      eyebrow: "Ako to funguje",
+      title: "Rezervácia, kód, otvoríš dvere a vybavené.",
+      description:
+        "Vyberieš si čas, príde ti kód do mobilu a na mieste nič neriešiš. Len prídeš, otvoríš box a umyješ psíka.",
+    },
     process: [
       {
         title: "Rezervuješ si voľný slot online",
@@ -323,6 +414,7 @@ const fallbackContent: Record<Locale, LandingPageData> = {
       title: "30 minút v boxe za 12 €. Všetko dôležité už máš pripravené.",
       description:
         "Žiadne členstvo, žiadne komplikované balíčky. Rezervuješ si len slot, prídeš so psom a postaráš sa oň v čistom pripravenom priestore.",
+      itemLabel: "V cene",
       items: [
         "30 minút umývania a sušenia",
         "Teplá voda a ručná sprcha",
@@ -344,6 +436,12 @@ const fallbackContent: Record<Locale, LandingPageData> = {
       "Aj pre väčšie plemená",
       "Rýchle a jednoduché použitie",
     ],
+    faqSection: {
+      eyebrow: "FAQ",
+      title: "Otázky, ktoré si ľudia kladú skôr, než prídu prvý raz.",
+      description:
+        "Všetko podstatné o vstupe, rezervácii aj vybavení nájdeš tu na jednom mieste.",
+    },
     faq: [
       {
         question: "Ako sa dostanem dnu?",
@@ -367,6 +465,7 @@ const fallbackContent: Record<Locale, LandingPageData> = {
       },
     ],
     finalCta: {
+      eyebrow: "Rezervácia",
       title: "Po prechádzke, po daždi alebo pred návštevou. Box čaká pripravený.",
       description:
         "Rezervuj si čas, otvor dvere kódom z mobilu a vybav kúpanie rýchlo, čisto a bez stresu pre seba aj psa.",
@@ -411,12 +510,19 @@ const fallbackContent: Record<Locale, LandingPageData> = {
       { label: "Contact", href: "#contact" },
     ],
     hero: {
+      badge: "Code access",
       eyebrow: "Self-service dog wash with mobile code access",
       titlePrefix: "Arrive, enter the code and",
       titleAccent: "wash your dog",
       titleSuffix: "without the mess at home.",
       description:
         "After a muddy walk or before a visit. Book a time online, get a code on your phone and wash plus dry your dog in a clean private box without turning your bathroom into chaos.",
+      panelEyebrow: "How it works",
+      panelStatus: "Code entry",
+      panelKicker: "Ready for your visit",
+      panelTitle: "You arrive with your dog, enter the code and the box is yours.",
+      panelDescription:
+        "No key handover and no waiting for staff. Online booking, code on your phone and a fast self-service visit whenever it suits you.",
       primaryCta: {
         label: "Book a slot",
         href: "#pricing",
@@ -446,6 +552,45 @@ const fallbackContent: Record<Locale, LandingPageData> = {
         "Private box for you and your dog",
       ],
     },
+    gallery: {
+      eyebrow: "What it feels like",
+      title:
+        "A place where you can wash your dog quickly, comfortably and without the mess at home.",
+      description:
+        "You arrive, unlock the box, wash your dog, dry the coat and leave. No wet bathroom, no hair in the tub and no extra cleanup waiting at home.",
+      sideHighlightsTitle: "Typical situations",
+      sideIncludedTitle: "Inside the box",
+      items: [
+        {
+          title: "Comfortable wash",
+          subtitle: "Warm water, space and a calmer experience for both of you.",
+          alt: "Large dog being washed in a clean bathing area.",
+          imageUrl:
+            "https://cdn.pixabay.com/photo/2016/02/03/23/24/dog-1178365_1280.jpg",
+        },
+        {
+          title: "Clean result",
+          subtitle:
+            "You leave with a clean dog instead of another cleanup task at home.",
+          alt: "Small clean dog after grooming care.",
+          imageUrl:
+            "https://cdn.pixabay.com/photo/2022/11/02/17/39/dog-7565683_1280.jpg",
+        },
+        {
+          title: "Practical care",
+          subtitle: "From a quick rinse to more complete maintenance when needed.",
+          alt: "Close-up of dog coat care during grooming.",
+          imageUrl:
+            "https://cdn.pixabay.com/photo/2022/11/02/17/39/dog-7565682_1280.jpg",
+        },
+      ],
+    },
+    overviewSection: {
+      eyebrow: "Know this feeling?",
+      title: "The dog is dirty, but you do not want to flood your bathroom again.",
+      description:
+        "After rain, mud or a long walk you need a fast solution. Wash your dog here and go home without turning your bathroom into a mess.",
+    },
     highlights: [
       {
         title: "Your bathroom ends up full of fur, water and mud",
@@ -463,6 +608,12 @@ const fallbackContent: Record<Locale, LandingPageData> = {
           "Whether it is rain, mud or snow, you want your dog clean quickly instead of bringing the mess all the way home.",
       },
     ],
+    featuresSection: {
+      eyebrow: "Why people choose this",
+      title: "Simple, clean and much less stressful for you and your dog.",
+      description:
+        "A private box, ready-to-use equipment and no cleanup waiting at home. That is exactly why people come back.",
+    },
     features: [
       {
         eyebrow: "Privacy",
@@ -501,6 +652,12 @@ const fallbackContent: Record<Locale, LandingPageData> = {
           "From a quick rinse of dirty paws to a full wash, the box is set up for everyday care and for the messier days.",
       },
     ],
+    processSection: {
+      eyebrow: "How it works",
+      title: "Book, get the code, open the door and you are in.",
+      description:
+        "Choose a time, receive the code on your phone and arrive without dealing with staff or keys. Just open the door and start.",
+    },
     process: [
       {
         title: "Book an available slot online",
@@ -528,6 +685,7 @@ const fallbackContent: Record<Locale, LandingPageData> = {
       title: "30 minutes in the box for €12. Everything essential is ready for you.",
       description:
         "No membership and no complicated packages. You simply reserve a slot, arrive with your dog and use the prepared self-service wash box.",
+      itemLabel: "Included",
       items: [
         "30 minutes of washing and drying",
         "Warm water and hand shower",
@@ -549,6 +707,12 @@ const fallbackContent: Record<Locale, LandingPageData> = {
       "Works for larger breeds",
       "Fast and simple to use",
     ],
+    faqSection: {
+      eyebrow: "FAQ",
+      title: "Questions people ask before their first visit.",
+      description:
+        "Everything important about access, booking and equipment is here in one place.",
+    },
     faq: [
       {
         question: "How do I get inside?",
@@ -572,6 +736,7 @@ const fallbackContent: Record<Locale, LandingPageData> = {
       },
     ],
     finalCta: {
+      eyebrow: "Booking",
       title: "After a walk, after the rain or before guests arrive, the box is ready.",
       description:
         "Reserve a time, unlock the door with your phone code and handle the wash quickly, cleanly and without stress for you or your dog.",
@@ -633,12 +798,35 @@ function mergeLandingPage(
         ? (incoming.hero?.proof as string[])
         : fallback.hero.proof,
     },
+    gallery: {
+      ...fallback.gallery,
+      ...incoming.gallery,
+      items: hasItems(incoming.gallery?.items)
+        ? fallback.gallery.items.map((item, index) => ({
+            ...item,
+            ...((incoming.gallery?.items?.[index] as GalleryItem | undefined) ??
+              {}),
+          }))
+        : fallback.gallery.items,
+    },
+    overviewSection: {
+      ...fallback.overviewSection,
+      ...incoming.overviewSection,
+    },
     highlights: hasItems(incoming.highlights)
       ? (incoming.highlights as Highlight[])
       : fallback.highlights,
+    featuresSection: {
+      ...fallback.featuresSection,
+      ...incoming.featuresSection,
+    },
     features: hasItems(incoming.features)
       ? (incoming.features as Feature[])
       : fallback.features,
+    processSection: {
+      ...fallback.processSection,
+      ...incoming.processSection,
+    },
     process: hasItems(incoming.process)
       ? (incoming.process as Step[])
       : fallback.process,
@@ -652,6 +840,10 @@ function mergeLandingPage(
     proofStrip: hasItems(incoming.proofStrip)
       ? (incoming.proofStrip as string[])
       : fallback.proofStrip,
+    faqSection: {
+      ...fallback.faqSection,
+      ...incoming.faqSection,
+    },
     faq: hasItems(incoming.faq)
       ? (incoming.faq as FaqItem[])
       : fallback.faq,

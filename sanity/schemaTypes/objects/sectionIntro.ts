@@ -1,8 +1,8 @@
 import { defineField, defineType } from "sanity";
 
-export const finalCtaSection = defineType({
-  name: "finalCtaSection",
-  title: "Final CTA section",
+export const sectionIntro = defineType({
+  name: "sectionIntro",
+  title: "Section intro",
   type: "object",
   fields: [
     defineField({
@@ -21,19 +21,7 @@ export const finalCtaSection = defineType({
       name: "description",
       title: "Description",
       type: "text",
-      rows: 5,
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "primaryCta",
-      title: "Primary CTA",
-      type: "cta",
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "secondaryCta",
-      title: "Secondary CTA",
-      type: "cta",
+      rows: 4,
       validation: (rule) => rule.required(),
     }),
   ],

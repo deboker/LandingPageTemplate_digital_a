@@ -6,6 +6,12 @@ export const heroSection = defineType({
   type: "object",
   fields: [
     defineField({
+      name: "badge",
+      title: "Badge",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "eyebrow",
       title: "Eyebrow",
       type: "string",
@@ -34,6 +40,37 @@ export const heroSection = defineType({
       title: "Description",
       type: "text",
       rows: 5,
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "panelEyebrow",
+      title: "Right visual eyebrow",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "panelStatus",
+      title: "Right visual status",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "panelKicker",
+      title: "Right visual badge",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "panelTitle",
+      title: "Right visual title",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "panelDescription",
+      title: "Right visual description",
+      type: "text",
+      rows: 4,
       validation: (rule) => rule.required(),
     }),
     defineField({

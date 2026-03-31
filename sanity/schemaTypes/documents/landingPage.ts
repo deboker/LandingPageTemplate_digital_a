@@ -11,6 +11,7 @@ export const landingPage = defineType({
     { name: "seo", title: "SEO" },
     { name: "navigation", title: "Navigation" },
     { name: "hero", title: "Hero" },
+    { name: "gallery", title: "Photos & Gallery" },
     { name: "overview", title: "Problem / Intro" },
     { name: "features", title: "Benefits & Equipment" },
     { name: "process", title: "How It Works" },
@@ -65,6 +66,20 @@ export const landingPage = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "gallery",
+      title: "Photo gallery and visual cards",
+      type: "gallerySection",
+      group: "gallery",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "overviewSection",
+      title: "Overview section lead",
+      type: "sectionIntro",
+      group: "overview",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "highlights",
       title: "Problem / intro cards",
       type: "array",
@@ -90,6 +105,20 @@ export const landingPage = defineType({
       validation: (rule) => rule.min(1),
     }),
     defineField({
+      name: "featuresSection",
+      title: "Benefits section lead",
+      type: "sectionIntro",
+      group: "features",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "processSection",
+      title: "Process section lead",
+      type: "sectionIntro",
+      group: "process",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "process",
       title: "How-it-works steps",
       type: "array",
@@ -111,6 +140,13 @@ export const landingPage = defineType({
       group: "faq",
       of: [defineArrayMember({ type: "faqItem" })],
       validation: (rule) => rule.min(1),
+    }),
+    defineField({
+      name: "faqSection",
+      title: "FAQ section lead",
+      type: "sectionIntro",
+      group: "faq",
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "finalCta",

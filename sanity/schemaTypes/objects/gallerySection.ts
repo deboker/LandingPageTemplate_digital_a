@@ -1,8 +1,8 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 
-export const cmsSection = defineType({
-  name: "cmsSection",
-  title: "Pricing section",
+export const gallerySection = defineType({
+  name: "gallerySection",
+  title: "Gallery section",
   type: "object",
   fields: [
     defineField({
@@ -21,29 +21,27 @@ export const cmsSection = defineType({
       name: "description",
       title: "Description",
       type: "text",
-      rows: 5,
+      rows: 4,
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "itemLabel",
-      title: "Card label",
+      name: "sideHighlightsTitle",
+      title: "Secondary card eyebrow",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "sideIncludedTitle",
+      title: "Third card eyebrow",
       type: "string",
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: "items",
-      title: "Included items",
+      title: "Gallery items",
       type: "array",
-      of: [defineArrayMember({ type: "string" })],
-      options: { layout: "tags" },
-      validation: (rule) => rule.min(1),
-    }),
-    defineField({
-      name: "note",
-      title: "Extra note",
-      type: "text",
-      rows: 3,
-      validation: (rule) => rule.required(),
+      of: [defineArrayMember({ type: "galleryItem" })],
+      validation: (rule) => rule.required().min(3).max(3),
     }),
   ],
 });
