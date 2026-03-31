@@ -15,6 +15,9 @@ const languageAlternates = {
   en: "/en",
 } as const;
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
+const metadataBase = new URL(siteUrl);
+
 const openGraphLocales: Record<Locale, string> = {
   sk: "sk_SK",
   en: "en_US",
@@ -54,19 +57,26 @@ export async function generateMetadata({
   const parentMetadata = await parent;
   const previousOgImages = parentMetadata.openGraph?.images ?? [];
   const previousTwitterImages = parentMetadata.twitter?.images ?? [];
+  const localeUrl = new URL(`/${locale}`, metadataBase).toString();
+  const alternateLanguages = Object.fromEntries(
+    Object.entries(languageAlternates).map(([language, path]) => [
+      language,
+      new URL(path, metadataBase).toString(),
+    ]),
+  );
 
   return {
     title: content.seo.title,
     description: content.seo.description,
     keywords: content.seo.keywords,
     alternates: {
-      canonical: `/${locale}`,
-      languages: languageAlternates,
+      canonical: localeUrl,
+      languages: alternateLanguages,
     },
     openGraph: {
       title: content.seo.title,
       description: content.seo.description,
-      url: `/${locale}`,
+      url: localeUrl,
       locale: openGraphLocales[locale],
       type: "website",
       siteName: "Pet Spa Box",

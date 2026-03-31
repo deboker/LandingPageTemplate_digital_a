@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
-const socialImage = "/petspabox_social_banner.jpg";
+const metadataBase = new URL(siteUrl);
+const socialImage = new URL("/petspabox_social_banner.jpg", metadataBase).toString();
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase,
   title: {
     default: "Pet Spa Box",
     template: "%s | Pet Spa Box",
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
     description:
       "Samoobslužná umyvárka pre psíkov a mačky s prístupom cez kód z mobilu. Rýchle, čisté a pohodlné riešenie bez chaosu doma.",
     type: "website",
-    url: siteUrl,
+    url: metadataBase.toString(),
     siteName: "Pet Spa Box",
     images: [
       {
