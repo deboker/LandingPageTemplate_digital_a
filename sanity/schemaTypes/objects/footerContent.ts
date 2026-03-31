@@ -31,6 +31,12 @@ export const footerContent = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "website",
+      title: "Website",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "location",
       title: "Location",
       type: "string",

@@ -40,8 +40,8 @@ export function SiteFooter({ locale, footer, navigation }: SiteFooterProps) {
               </p>
               <p className="text-sm font-semibold tracking-[-0.02em] text-slate-950">
                 {locale === "sk"
-                  ? "Samoobslužná umyvárka pre psov"
-                  : "Self-service dog wash"}
+                  ? "Samoobslužná umyvárka pre psíkov a mačky"
+                  : "Self-service wash for dogs and cats"}
               </p>
             </div>
           </div>
@@ -133,6 +133,22 @@ export function SiteFooter({ locale, footer, navigation }: SiteFooterProps) {
               </p>
               <p className="mt-2 text-base font-semibold text-white">
                 {footer.email}
+              </p>
+            </Link>
+
+            <Link
+              href={
+                footer.website.startsWith("http")
+                  ? footer.website
+                  : `https://${footer.website}`
+              }
+              className="rounded-[1rem] border border-white/12 bg-white/8 px-4 py-4 transition-colors hover:bg-white/12"
+            >
+              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/45">
+                Web
+              </p>
+              <p className="mt-2 text-base font-semibold text-white">
+                {footer.website}
               </p>
             </Link>
 

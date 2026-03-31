@@ -25,7 +25,7 @@ const socialImage = {
   url: `${siteUrl}/box_wash_social.webp`,
   width: 1536,
   height: 1024,
-  alt: "Psí SPA Box social preview",
+  alt: "Pet Spa Box social preview",
 } as const;
 
 const uiCopy: Record<Locale, { stepLabel: string }> = {
@@ -74,7 +74,7 @@ export async function generateMetadata({
       url: `/${locale}`,
       locale: openGraphLocales[locale],
       type: "website",
-      siteName: "Psí SPA Box",
+      siteName: "Pet Spa Box",
       images: [socialImage],
     },
     twitter: {
@@ -461,6 +461,60 @@ export default async function LocalePage({ params }: PageProps) {
             ))}
           </div>
         </FadeIn>
+
+        <section id="locations" className="grid gap-8">
+          <SectionLead
+            eyebrow={content.locations.eyebrow}
+            title={content.locations.title}
+            description={content.locations.description}
+          />
+
+          <div className="grid gap-4 xl:grid-cols-2">
+            {content.locations.items.map((item, index) => (
+              <FadeIn
+                key={item.title}
+                delay={index * 0.08}
+                className="overflow-hidden rounded-[1.9rem] border border-slate-900/8 bg-white/78 shadow-[0_20px_60px_rgba(15,23,42,0.06)]"
+              >
+                <div className="space-y-4 px-6 pb-5 pt-6">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="rounded-full border border-slate-900/8 bg-slate-50 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-600">
+                      {item.badge}
+                    </span>
+                    <span className="rounded-full bg-emerald-100 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-emerald-950">
+                      {locale === "sk" ? "Rezervácia 24/7" : "Booking 24/7"}
+                    </span>
+                  </div>
+
+                  <div className="space-y-3">
+                    <h3 className="text-2xl font-semibold tracking-[-0.03em] text-slate-950">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">
+                      {item.address}
+                    </p>
+                    <p className="max-w-2xl text-base leading-7 text-slate-600">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="px-3 pb-3">
+                  <div className="overflow-hidden rounded-[1.5rem] border border-slate-900/8 bg-slate-100">
+                    <iframe
+                      src={item.mapEmbedUrl}
+                      title={item.title}
+                      loading="lazy"
+                      allowFullScreen
+                      referrerPolicy="no-referrer-when-downgrade"
+                      className="h-[22rem] w-full border-0"
+                    />
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </section>
 
         <section id="faq" className="grid gap-8">
           <SectionLead

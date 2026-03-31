@@ -21,6 +21,7 @@ export const landingPageQuery = groq`*[_type == "landingPage" && _id == $documen
   processSection,
   process,
   cms,
+  locations,
   proofStrip,
   faqSection,
   faq,

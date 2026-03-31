@@ -7,18 +7,21 @@ const socialImage = `${siteUrl}/box_wash_social.webp`;
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Psí SPA Box",
-    template: "%s | Psí SPA Box",
+    default: "Pet Spa Box",
+    template: "%s | Pet Spa Box",
   },
   description:
-    "Samoobslužná umyvárka pre psov s rezerváciou 24/7. Prídeš, otvoríš dvere kódom z mobilu, umyješ psíka a ideš ďalej bez neporiadku doma.",
-  applicationName: "Psí SPA Box",
+    "Samoobslužná umyvárka pre psíkov a mačky s rezerváciou 24/7. Prídeš, otvoríš dvere kódom z mobilu a pohodlne umyješ svojho miláčika bez neporiadku doma.",
+  applicationName: "Pet Spa Box",
   keywords: [
     "psia umyvarka",
-    "samoobsluzna umyvaren pre psov",
+    "umyvanie maciek",
+    "samoobsluzna umyvaren pre psikov a macky",
+    "pet wash",
     "dog wash",
-    "umyvanie psov",
-    "psi spa",
+    "cat wash",
+    "umyvanie zvierat",
+    "pet spa",
   ],
   category: "pet care",
   alternates: {
@@ -28,26 +31,26 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Psí SPA Box",
+    title: "Pet Spa Box",
     description:
-      "Samoobslužná umyvárka pre psov s prístupom cez kód z mobilu. Rýchle, čisté a pohodlné riešenie bez chaosu doma.",
+      "Samoobslužná umyvárka pre psíkov a mačky s prístupom cez kód z mobilu. Rýchle, čisté a pohodlné riešenie bez chaosu doma.",
     type: "website",
     url: siteUrl,
-    siteName: "Psí SPA Box",
+    siteName: "Pet Spa Box",
     images: [
       {
         url: socialImage,
         width: 1536,
         height: 1024,
-        alt: "Psí SPA Box social preview",
+        alt: "Pet Spa Box social preview",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Psí SPA Box",
+    title: "Pet Spa Box",
     description:
-      "Prídeš so psom, otvoríš box kódom a vybavíš kúpanie rýchlo a čisto.",
+      "Prídeš s miláčikom, otvoríš box kódom a vybavíš kúpanie rýchlo a čisto.",
     images: [socialImage],
   },
   robots: {

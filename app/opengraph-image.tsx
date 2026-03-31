@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
-export const alt = "Psí SPA Box | Samoobslužná umyvárka pre psov";
+export const alt = "Pet Spa Box | Samoobslužná umyvárka pre psíkov a mačky";
 
 export const size = {
   width: 1200,
@@ -74,7 +74,7 @@ export default async function Image() {
                 color: "#475569",
               }}
             >
-              <span>Psí SPA Box</span>
+              <span>Pet Spa Box</span>
               <span
                 style={{
                   display: "flex",
@@ -100,7 +100,7 @@ export default async function Image() {
               }}
             >
               <span>Prídeš, zadáš kód</span>
-              <span style={{ color: "#14532d" }}>a umyješ psíka</span>
+              <span style={{ color: "#14532d" }}>a umyješ miláčika</span>
               <span>bez neporiadku doma.</span>
             </div>
 
@@ -113,8 +113,9 @@ export default async function Image() {
                 color: "#334155",
               }}
             >
-              Samoobslužná umyvárka pre psov s prístupom cez mobilný kód.
-              Rýchle, čisté a pohodlné riešenie po prechádzke, blate alebo daždi.
+              Samoobslužná umyvárka pre psíkov a mačky s prístupom cez mobilný
+              kód. Rýchle, čisté a pohodlné riešenie po prechádzke, blate alebo
+              daždi.
             </div>
           </div>
 
@@ -139,7 +140,7 @@ export default async function Image() {
             >
               <img
                 src={logoSrc}
-                alt="Psí SPA Box logo"
+                alt="Pet Spa Box logo"
                 width="272"
                 height="272"
                 style={{

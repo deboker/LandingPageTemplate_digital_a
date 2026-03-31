@@ -16,6 +16,7 @@ export const landingPage = defineType({
     { name: "features", title: "Benefits & Equipment" },
     { name: "process", title: "How It Works" },
     { name: "cms", title: "Pricing" },
+    { name: "locations", title: "Locations" },
     { name: "faq", title: "FAQ" },
     { name: "finalCta", title: "Reservation CTA" },
     { name: "footer", title: "Brand & Contact" },
@@ -131,6 +132,13 @@ export const landingPage = defineType({
       title: "Pricing section",
       type: "cmsSection",
       group: "cms",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "locations",
+      title: "Locations section",
+      type: "locationsSection",
+      group: "locations",
       validation: (rule) => rule.required(),
     }),
     defineField({

@@ -11,6 +11,8 @@ import { heroSection } from "./objects/heroSection";
 import { highlightItem } from "./objects/highlightItem";
 import { metric } from "./objects/metric";
 import { navItem } from "./objects/navItem";
+import { locationItem } from "./objects/locationItem";
+import { locationsSection } from "./objects/locationsSection";
 import { processStep } from "./objects/processStep";
 import { sectionIntro } from "./objects/sectionIntro";
 import { seoSettings } from "./objects/seoSettings";
@@ -32,4 +34,6 @@ export const schemaTypes = [
   galleryItem,
   gallerySection,
   sectionIntro,
+  locationItem,
+  locationsSection,
 ];

@@ -40,8 +40,8 @@ export function SiteHeader({
             </p>
             <p className="text-sm font-semibold tracking-[-0.02em] text-slate-950">
               {locale === "sk"
-                ? "Samoobslužná umyvárka pre psov"
-                : "Self-service dog wash"}
+                ? "Samoobslužná umyvárka pre psíkov a mačky"
+                : "Self-service wash for dogs and cats"}
             </p>
           </div>
         </Link>
