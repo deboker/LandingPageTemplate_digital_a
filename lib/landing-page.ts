@@ -71,6 +71,13 @@ export type FooterContent = {
   location: string;
 };
 
+export type BookingSection = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  highlights: string[];
+};
+
 export type LandingPageData = {
   locale: Locale;
   seo: {
@@ -118,6 +125,7 @@ export type LandingPageData = {
     items: string[];
     note: string;
   };
+  booking: BookingSection;
   locations: {
     eyebrow: string;
     title: string;
@@ -443,6 +451,17 @@ const fallbackContent: Record<Locale, LandingPageData> = {
       note:
         "Ak máš veľké alebo veľmi chlpaté plemeno, rezervuj si dva sloty za sebou pre úplný komfort.",
     },
+    booking: {
+      eyebrow: "Rezervácia",
+      title: "Vyber si termín a rezervuj si box online.",
+      description:
+        "Všetky hlavné tlačidlá Rezervovať vedú sem. Stačí si vybrať voľný termín, potvrdiť rezerváciu a potom prísť s miláčikom na svoj slot.",
+      highlights: [
+        "Rezervácia priamo na webe",
+        "Výber voľného termínu online",
+        "Vhodné pre mobil aj desktop",
+      ],
+    },
     locations: {
       eyebrow: "Kde nás nájdeš",
       title:
@@ -743,6 +762,17 @@ const fallbackContent: Record<Locale, LandingPageData> = {
       note:
         "If you have a large or very fluffy breed, reserve two slots in a row for extra comfort.",
     },
+    booking: {
+      eyebrow: "Booking",
+      title: "Choose your time and book the wash box online.",
+      description:
+        "All main booking buttons lead here. Pick an available time, confirm the booking and arrive with your pet for the reserved slot.",
+      highlights: [
+        "Booking directly on the site",
+        "Choose an available slot online",
+        "Works well on mobile and desktop",
+      ],
+    },
     locations: {
       eyebrow: "Where to find us",
       title:
@@ -910,6 +940,13 @@ function mergeLandingPage(
       items: hasItems(incoming.cms?.items)
         ? (incoming.cms?.items as string[])
         : fallback.cms.items,
+    },
+    booking: {
+      ...fallback.booking,
+      ...incoming.booking,
+      highlights: hasItems(incoming.booking?.highlights)
+        ? (incoming.booking?.highlights as string[])
+        : fallback.booking.highlights,
     },
     locations: {
       ...fallback.locations,

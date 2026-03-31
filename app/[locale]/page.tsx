@@ -473,7 +473,7 @@ export default async function LocalePage({ params }: PageProps) {
           </div>
         </FadeIn>
 
-        <ReservantoBooking locale={locale} />
+        <ReservantoBooking locale={locale} content={content.booking} />
 
         <section id="locations" className="grid gap-8">
           <SectionLead

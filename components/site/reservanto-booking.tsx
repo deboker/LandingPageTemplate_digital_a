@@ -1,57 +1,40 @@
 import Script from "next/script";
+import type { BookingSection } from "@/lib/landing-page";
 import type { Locale } from "@/lib/locales";
 
 type ReservantoBookingProps = {
   locale: Locale;
+  content: BookingSection;
 };
 
 const defaultReservantoFormId = "24877";
 const reservantoFormId =
   process.env.NEXT_PUBLIC_RESERVANTO_FORM_ID?.trim() || defaultReservantoFormId;
 
-export function ReservantoBooking({ locale }: ReservantoBookingProps) {
-  const sectionCopy =
+export function ReservantoBooking({
+  locale,
+  content,
+}: ReservantoBookingProps) {
+  const frameTitle =
     locale === "sk"
-      ? {
-          eyebrow: "Rezervácia",
-          title: "Vyber si termín a rezervuj si box online.",
-          description:
-            "Všetky hlavné tlačidlá Rezervovať vedú sem. Stačí si vybrať voľný termín, potvrdiť rezerváciu a potom prísť s miláčikom na svoj slot.",
-          highlights: [
-            "Rezervácia priamo na webe",
-            "Výber voľného termínu online",
-            "Vhodné pre mobil aj desktop",
-          ],
-          frameTitle: "Reservanto rezervácia Pet Spa Box",
-        }
-      : {
-          eyebrow: "Booking",
-          title: "Choose your time and book the wash box online.",
-          description:
-            "All main booking buttons lead here. Pick an available time, confirm the booking and arrive with your pet for the reserved slot.",
-          highlights: [
-            "Booking directly on the site",
-            "Choose an available slot online",
-            "Works well on mobile and desktop",
-          ],
-          frameTitle: "Reservanto booking form for Pet Spa Box",
-        };
+      ? "Reservanto rezervácia Pet Spa Box"
+      : "Reservanto booking form for Pet Spa Box";
 
   return (
     <section id="booking" className="grid gap-8">
       <div className="grid gap-4 lg:grid-cols-[0.42fr_0.58fr] lg:items-end">
         <div className="space-y-3">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
-            {sectionCopy.eyebrow}
+            {content.eyebrow}
           </p>
           <div className="h-px w-24 bg-slate-900/10" />
         </div>
         <div className="space-y-4">
           <h2 className="max-w-4xl text-4xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-5xl">
-            {sectionCopy.title}
+            {content.title}
           </h2>
           <p className="max-w-3xl text-base leading-8 text-slate-600 sm:text-lg">
-            {sectionCopy.description}
+            {content.description}
           </p>
         </div>
       </div>
@@ -59,7 +42,7 @@ export function ReservantoBooking({ locale }: ReservantoBookingProps) {
       <div className="grid gap-4 xl:grid-cols-[0.78fr_1.22fr]">
         <div className="rounded-[1.9rem] border border-slate-900/8 bg-white/78 p-6 shadow-[0_18px_56px_rgba(15,23,42,0.04)]">
           <div className="space-y-4">
-            {sectionCopy.highlights.map((item) => (
+            {content.highlights.map((item) => (
               <div
                 key={item}
                 className="rounded-[1.2rem] border border-slate-900/8 bg-slate-50 px-4 py-4"
@@ -79,7 +62,7 @@ export function ReservantoBooking({ locale }: ReservantoBookingProps) {
                 className="reservanto-iframe mx-auto w-full"
                 data-id={reservantoFormId}
                 style={{ maxWidth: "100%", height: "700px" }}
-                aria-label={sectionCopy.frameTitle}
+                aria-label={frameTitle}
               />
             </div>
           </div>

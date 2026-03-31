@@ -1,4 +1,5 @@
 import { landingPage } from "./documents/landingPage";
+import { bookingSection } from "./objects/bookingSection";
 import { cmsSection } from "./objects/cmsSection";
 import { cta } from "./objects/cta";
 import { faqItem } from "./objects/faqItem";
@@ -19,6 +20,7 @@ import { seoSettings } from "./objects/seoSettings";
 
 export const schemaTypes = [
   landingPage,
+  bookingSection,
   cta,
   navItem,
   metric,
