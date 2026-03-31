@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -19,14 +19,6 @@ const openGraphLocales: Record<Locale, string> = {
   sk: "sk_SK",
   en: "en_US",
 };
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
-const socialImage = {
-  url: `${siteUrl}/petspabox_social_banner.jpg`,
-  width: 1024,
-  height: 1024,
-  alt: "Pet Spa Box social preview",
-} as const;
 
 const uiCopy: Record<Locale, { stepLabel: string }> = {
   sk: { stepLabel: "Krok" },
@@ -51,7 +43,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: PageProps): Promise<Metadata> {
+}: PageProps, parent: ResolvingMetadata): Promise<Metadata> {
   const { locale } = await params;
 
   if (!isLocale(locale)) {
@@ -59,6 +51,9 @@ export async function generateMetadata({
   }
 
   const { content } = await getLandingPage(locale);
+  const parentMetadata = await parent;
+  const previousOgImages = parentMetadata.openGraph?.images ?? [];
+  const previousTwitterImages = parentMetadata.twitter?.images ?? [];
 
   return {
     title: content.seo.title,
@@ -75,13 +70,13 @@ export async function generateMetadata({
       locale: openGraphLocales[locale],
       type: "website",
       siteName: "Pet Spa Box",
-      images: [socialImage],
+      images: previousOgImages,
     },
     twitter: {
       card: "summary_large_image",
       title: content.seo.title,
       description: content.seo.description,
-      images: [socialImage.url],
+      images: previousTwitterImages,
     },
   };
 }

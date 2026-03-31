@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
-const socialImage = `${siteUrl}/petspabox_social_banner.jpg`;
+const socialImage = "/petspabox_social_banner.jpg";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
