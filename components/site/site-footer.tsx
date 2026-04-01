@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CookieSettingsTrigger } from "@/components/site/cookie-settings-trigger";
 import type { FooterContent, NavItem } from "@/lib/landing-page";
 import type { Locale } from "@/lib/locales";
 
@@ -14,11 +15,41 @@ export function SiteFooter({ locale, footer, navigation }: SiteFooterProps) {
   const legalLinks =
     locale === "sk"
       ? [
-          "GDPR a ochrana súkromia",
-          "Obchodné podmienky",
-          "Reklamačný poriadok",
+          {
+            label: "Zásady cookies",
+            href: `/${locale}/cookies`,
+          },
+          {
+            label: "GDPR a ochrana súkromia",
+            href: null,
+          },
+          {
+            label: "Obchodné podmienky",
+            href: null,
+          },
+          {
+            label: "Reklamačný poriadok",
+            href: null,
+          },
         ]
-      : ["Privacy policy", "Terms and conditions", "Refund policy"];
+      : [
+          {
+            label: "Cookie policy",
+            href: `/${locale}/cookies`,
+          },
+          {
+            label: "Privacy policy",
+            href: null,
+          },
+          {
+            label: "Terms and conditions",
+            href: null,
+          },
+          {
+            label: "Refund policy",
+            href: null,
+          },
+        ];
 
   return (
     <footer className="px-6 pb-8 pt-4 sm:px-8 lg:px-14 xl:px-20 2xl:px-24">
@@ -86,16 +117,33 @@ export function SiteFooter({ locale, footer, navigation }: SiteFooterProps) {
               {locale === "sk" ? "Právne podstránky" : "Legal pages"}
             </p>
             <div className="mt-4 grid gap-2">
+              <CookieSettingsTrigger
+                locale={locale}
+                className="flex items-center justify-between rounded-[1rem] border border-slate-900/8 bg-slate-950 px-4 py-3 text-left text-sm font-semibold text-white transition-colors hover:bg-slate-800"
+              />
               {legalLinks.map((item) => (
-                <div
-                  key={item}
-                  className="flex items-center justify-between rounded-[1rem] border border-dashed border-slate-900/10 bg-slate-50/80 px-4 py-3 text-sm text-slate-700"
-                >
-                  <span>{item}</span>
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
-                    {locale === "sk" ? "ďalej" : "next"}
-                  </span>
-                </div>
+                item.href ? (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="flex items-center justify-between rounded-[1rem] border border-slate-900/8 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 transition-colors hover:bg-slate-100 hover:text-slate-950"
+                  >
+                    <span>{item.label}</span>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+                      {locale === "sk" ? "otvoriť" : "open"}
+                    </span>
+                  </Link>
+                ) : (
+                  <div
+                    key={item.label}
+                    className="flex items-center justify-between rounded-[1rem] border border-dashed border-slate-900/10 bg-slate-50/80 px-4 py-3 text-sm text-slate-700"
+                  >
+                    <span>{item.label}</span>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+                      {locale === "sk" ? "čoskoro" : "soon"}
+                    </span>
+                  </div>
+                )
               ))}
             </div>
           </div>
