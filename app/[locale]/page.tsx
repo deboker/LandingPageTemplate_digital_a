@@ -10,6 +10,7 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
 import { getLandingPage, type Cta } from "@/lib/landing-page";
 import { isLocale, locales, type Locale } from "@/lib/locales";
+import { MAINTENANCE_MODE } from "@/lib/maintenance";
 
 const languageAlternates = {
   sk: "/sk",
@@ -27,6 +28,42 @@ const openGraphLocales: Record<Locale, string> = {
 const uiCopy: Record<Locale, { stepLabel: string }> = {
   sk: { stepLabel: "Krok" },
   en: { stepLabel: "Step" },
+};
+
+const maintenanceCopy: Record<
+  Locale,
+  {
+    eyebrow: string;
+    title: string;
+    description: string;
+    status: string;
+    note: string;
+    metaTitle: string;
+    metaDescription: string;
+  }
+> = {
+  sk: {
+    eyebrow: "Pet Spa Box",
+    title: "Web v príprave",
+    description:
+      "Pripravujeme samoobslužnú umývarku pre psíkov a mačky s jednoduchou rezerváciou, prístupom cez kód a čistým priestorom bez neporiadku doma.",
+    status: "Ladíme obsah, rezervácie a posledné detaily.",
+    note: "Stránka sa spustí až po internom schválení v kóde.",
+    metaTitle: "Web v príprave",
+    metaDescription:
+      "Pet Spa Box pripravuje nový web pre samoobslužnú umývarku pre psíkov a mačky.",
+  },
+  en: {
+    eyebrow: "Pet Spa Box",
+    title: "Website in progress",
+    description:
+      "We are preparing a self-service wash for dogs and cats with simple booking, code access and a clean space without the mess at home.",
+    status: "Content, booking and final details are being tuned.",
+    note: "The full website opens only after internal code approval.",
+    metaTitle: "Website in progress",
+    metaDescription:
+      "Pet Spa Box is preparing a new website for a self-service wash for dogs and cats.",
+  },
 };
 
 const primaryButtonClass =
@@ -52,6 +89,36 @@ export async function generateMetadata({
 
   if (!isLocale(locale)) {
     return {};
+  }
+
+  if (MAINTENANCE_MODE) {
+    const copy = maintenanceCopy[locale];
+    const localeUrl = new URL(`/${locale}`, metadataBase).toString();
+
+    return {
+      title: copy.metaTitle,
+      description: copy.metaDescription,
+      alternates: {
+        canonical: localeUrl,
+      },
+      robots: {
+        index: false,
+        follow: false,
+      },
+      openGraph: {
+        title: `${copy.metaTitle} | Pet Spa Box`,
+        description: copy.metaDescription,
+        url: localeUrl,
+        locale: openGraphLocales[locale],
+        type: "website",
+        siteName: "Pet Spa Box",
+      },
+      twitter: {
+        card: "summary",
+        title: `${copy.metaTitle} | Pet Spa Box`,
+        description: copy.metaDescription,
+      },
+    };
   }
 
   const { content } = await getLandingPage(locale);
@@ -97,6 +164,10 @@ export default async function LocalePage({ params }: PageProps) {
 
   if (!isLocale(locale)) {
     notFound();
+  }
+
+  if (MAINTENANCE_MODE) {
+    return <MaintenancePage locale={locale} />;
   }
 
   const { content } = await getLandingPage(locale);
@@ -601,6 +672,75 @@ export default async function LocalePage({ params }: PageProps) {
         navigation={content.navigation}
       />
     </div>
+  );
+}
+
+function MaintenancePage({ locale }: { locale: Locale }) {
+  const copy = maintenanceCopy[locale];
+
+  return (
+    <main
+      lang={locale}
+      className="site-shell relative grid min-h-screen place-items-center overflow-hidden px-5 py-10 text-slate-950 sm:px-8"
+    >
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-[radial-gradient(circle_at_top,rgba(129,220,255,0.34),transparent_62%)]" />
+      <div className="pointer-events-none absolute -left-24 top-1/4 h-72 w-72 rounded-full bg-[rgba(198,255,108,0.24)] blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 bottom-12 h-80 w-80 rounded-full bg-[rgba(129,220,255,0.22)] blur-3xl" />
+
+      <section className="relative z-10 grid w-full max-w-3xl gap-8 text-center">
+        <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-[1.75rem] border border-slate-900/8 bg-white/78 shadow-[0_24px_70px_rgba(15,23,42,0.1)] backdrop-blur">
+          <PawMark className="h-14 w-14 text-[var(--brand-strong)]" />
+        </div>
+
+        <div className="space-y-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
+            {copy.eyebrow}
+          </p>
+          <h1 className="text-5xl font-semibold leading-none tracking-[-0.04em] text-slate-950 sm:text-7xl">
+            {copy.title}
+          </h1>
+          <p className="mx-auto max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
+            {copy.description}
+          </p>
+        </div>
+
+        <div className="mx-auto grid w-full max-w-xl gap-4 rounded-[1.75rem] border border-slate-900/8 bg-white/74 p-4 shadow-[0_22px_70px_rgba(15,23,42,0.08)] backdrop-blur">
+          <div className="overflow-hidden rounded-[1.2rem] bg-slate-950 px-3 py-5 text-white">
+            <div className="maintenance-paws flex w-max items-center gap-6">
+              {Array.from({ length: 12 }).map((_, index) => (
+                <PawMark
+                  key={index}
+                  className="h-8 w-8 shrink-0 text-[var(--brand)]"
+                />
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 rounded-[1.1rem] bg-slate-50 px-5 py-4 text-left">
+            <p className="text-sm font-semibold text-slate-950">
+              {copy.status}
+            </p>
+            <p className="text-sm leading-6 text-slate-600">{copy.note}</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function PawMark({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 64 64"
+      aria-hidden="true"
+      className={className}
+      fill="currentColor"
+    >
+      <path d="M23.1 27.1c-4.1.7-6.8 5.1-6 9.8.8 4.8 4.8 8.1 8.9 7.4 4.1-.7 6.8-5.1 6-9.8-.8-4.8-4.8-8.1-8.9-7.4Z" />
+      <path d="M40.9 27.1c-4.1-.7-8.1 2.6-8.9 7.4-.8 4.7 1.9 9.1 6 9.8 4.1.7 8.1-2.6 8.9-7.4.8-4.7-1.9-9.1-6-9.8Z" />
+      <path d="M21.2 13.9c-3.1.9-4.7 4.7-3.6 8.4 1.1 3.8 4.5 6.1 7.6 5.2 3.1-.9 4.7-4.7 3.6-8.4-1.1-3.8-4.5-6.1-7.6-5.2Z" />
+      <path d="M42.8 13.9c-3.1-.9-6.5 1.4-7.6 5.2-1.1 3.7.5 7.5 3.6 8.4 3.1.9 6.5-1.4 7.6-5.2 1.1-3.7-.5-7.5-3.6-8.4Z" />
+      <path d="M32 33.2c-7.4 0-14.7 7.5-14.7 14.7 0 4.5 3.1 7.1 7.3 7.1 2.8 0 4.8-1.3 7.4-1.3s4.6 1.3 7.4 1.3c4.2 0 7.3-2.6 7.3-7.1 0-7.2-7.3-14.7-14.7-14.7Z" />
+    </svg>
   );
 }
 

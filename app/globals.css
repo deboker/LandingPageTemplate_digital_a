@@ -50,3 +50,23 @@ body {
     radial-gradient(circle at top right, rgba(198, 255, 108, 0.32), transparent 26%),
     linear-gradient(180deg, #f7f2e8 0%, #f4efe5 58%, #efebe0 100%);
 }
+
+.maintenance-paws {
+  animation: maintenance-paws-loop 2.8s linear infinite;
+}
+
+@keyframes maintenance-paws-loop {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .maintenance-paws {
+    animation-duration: 8s;
+  }
+}

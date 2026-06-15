@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { CookieConsent } from "@/components/site/cookie-consent";
 import { isLocale } from "@/lib/locales";
+import { MAINTENANCE_MODE } from "@/lib/maintenance";
 
 type LocaleLayoutProps = {
   children: React.ReactNode;
@@ -22,7 +23,7 @@ export default async function LocaleLayout({
   return (
     <>
       {children}
-      <CookieConsent locale={locale} />
+      {!MAINTENANCE_MODE && <CookieConsent locale={locale} />}
     </>
   );
 }
